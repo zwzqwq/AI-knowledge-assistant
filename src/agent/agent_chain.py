@@ -16,10 +16,16 @@ from src.rag.chain import build_chain
 
 FALLBACK_SYSTEM_PROMPT = """你是一个知识助手。用户问题在本地知识库中没有找到相关信息，请你根据自己的知识回答。
 
+<对话历史>
+{history}
+</对话历史>
+
 回答规则：
-1. 直接回答用户问题
-2. 如果问题需要非常新的信息（如今日天气、最新新闻），且你不确定，诚实地说不知道
-3. 回答简洁"""
+1. 直接回答用户问题，不要编造任何信息
+2. 不要提到"互联网搜索"、"来源"、"搜索"等词汇——你的回答基于自身知识，不是搜索
+3. 不要添加 "[来源 1]" 等脚注标记，这不是联网搜索的结果
+4. 如果不确定或不知道，直接说"不清楚"
+5. 回答简洁"""
 
 FALLBACK_PROMPT = ChatPromptTemplate.from_messages([
     ("system", FALLBACK_SYSTEM_PROMPT),
@@ -76,7 +82,10 @@ class AgentChain:
 
         # ─── 第 2 步：RAG 回答不了，降级到 LLM 自身知识 ────
         logger.info("RAG 无法回答，降级到 LLM 自身知识")
-        response = self.llm.invoke(FALLBACK_PROMPT.format_prompt(input=query))
+        response = self.llm.invoke(FALLBACK_PROMPT.format_prompt(
+            history=inputs.get("history", ""),
+            input=query,
+        ))
 
         return {
             "answer": f"⚠️ 知识库中未找到相关信息，以下基于 AI 自身知识回答：\n\n{response.content}",
