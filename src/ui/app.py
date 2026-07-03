@@ -8,6 +8,7 @@ from src.config import config, logger
 from src.rag.loader import DocumentLoader
 from src.rag.retriever import Retriever
 from src.rag.chain import build_chain
+from src.agent.agent_chain import AgentChain
 from src.memory.history import ConversationHistory
 
 
@@ -30,10 +31,10 @@ retriever_mgr = init_retriever()
 if "history" not in st.session_state:
     st.session_state.history = ConversationHistory()
 
-if "chain" not in st.session_state:
+if "agent_chain" not in st.session_state:
     try:
         retriever = retriever_mgr.get_retriever()
-        st.session_state.chain = build_chain(retriever)
+        st.session_state.agent_chain = AgentChain(retriever)
         st.session_state.db_ready = True
     except RuntimeError:
         st.session_state.db_ready = False
@@ -76,10 +77,11 @@ with st.sidebar:
                     chunks = loader.load_text(content, source_name=f.name)
                     retriever_mgr.add(chunks)
                     st.success(f"✅ {f.name} — 已入库 {len(chunks)} 个片段")
-                # 新文档入库后重建 Chain
-                st.session_state.chain = build_chain(retriever_mgr.get_retriever(
+                # 新文档入库后重建 AgentChain
+                retriever = retriever_mgr.get_retriever(
                     search_type=st.session_state.get("search_type", config.RETRIEVER_SEARCH_TYPE)
-                ))
+                )
+                st.session_state.agent_chain = AgentChain(retriever)
                 st.session_state.db_ready = True
             except Exception as e:
                 logger.error(f"上传文件失败: {f.name}: {e}")
@@ -100,13 +102,13 @@ with st.sidebar:
         st.session_state.search_type = search_type
         if st.session_state.get("db_ready"):
             retriever = retriever_mgr.get_retriever(search_type=search_type)
-            st.session_state.chain = build_chain(retriever)
+            st.session_state.agent_chain = AgentChain(retriever)
         st.rerun()
 
     if st.session_state.get("db_ready"):
         current_type = st.session_state.get("search_type", "similarity")
         type_label = "相似度搜索" if current_type == "similarity" else "多样性搜索 (MMR)"
-        st.info(f"📊 向量库就绪 • 策略: {type_label}")
+        st.info(f"📊 向量库就绪 • 策略: {type_label} • Agent 路由: 开启")
 
     st.divider()
     if st.button("🗑️ 清空对话"):
@@ -130,7 +132,7 @@ if prompt:
     with st.chat_message("user"):
         st.write(prompt)
 
-    # 调用 RAG Chain
+    # 调用 AgentChain（智能路由：RAG → 联网搜索）
     if not st.session_state.get("db_ready"):
         st.error("向量库尚未初始化，请先上传文档")
     else:
@@ -138,15 +140,23 @@ if prompt:
             with st.spinner("思考中..."):
                 try:
                     history_str = history.format()
-                    result = st.session_state.chain.invoke({
+                    result = st.session_state.agent_chain.invoke({
                         "history": history_str,
                         "input": prompt,
                     })
-                    answer = result.content
+                    answer = result["answer"]
+                    source = result["source"]
+
+                    # 来源标签
+                    if source == "knowledge_base":
+                        st.caption("📚 来自知识库")
+                    else:
+                        st.caption("🌐 来自网络搜索")
+
                     st.write(answer)
                     history.add_assistant(answer)
                 except Exception as e:
-                    logger.error(f"LLM 调用失败: {e}")
+                    logger.error(f"调用失败: {e}")
                     error_msg = f"抱歉，回答生成失败：{e}"
                     st.error(error_msg)
                     history.add_assistant(error_msg)
