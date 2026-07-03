@@ -1,0 +1,17 @@
+# ChromaDB 向量数据库
+chroma_db/
+bge_model/
+__pycache__/
+*.pyc
+
+# 用户上传的知识库文件
+data/*.txt
+data/*.md
+data/*.pdf
+
+# 环境变量（含真实密钥）
+.env
+
+# 系统
+.DS_Store
+Thumbs.db
