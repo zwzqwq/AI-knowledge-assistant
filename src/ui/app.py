@@ -150,8 +150,8 @@ if prompt:
                     # 来源标签
                     if source == "knowledge_base":
                         st.caption("📚 来自知识库")
-                    else:
-                        st.caption("🌐 来自网络搜索")
+                    elif source == "llm":
+                        st.caption("💡 知识库未找到，基于 AI 自身回答")
 
                     st.write(answer)
                     history.add_assistant(answer)
