@@ -46,8 +46,9 @@ class Retriever:
         if vs is None:
             logger.info("向量库不存在，自动创建")
             return self.create(chunks)
-        logger.info(f"追加 {len(chunks)} 个切片到向量库")
+        logger.info(f"追加前向量库数量: {vs._collection.count()}")
         vs.add_documents(chunks)
+        logger.info(f"追加 {len(chunks)} 个切片到向量库，追加后数量: {vs._collection.count()}")
         return vs
 
     def get_retriever(self, search_type: str | None = None):

@@ -6,6 +6,7 @@ langchain-chroma>=1.1.0
 langchain-huggingface>=1.2.0
 langchain-text-splitters>=1.1.0
 chromadb>=1.5.0
+sentence-transformers>=2.2.0
 streamlit>=1.58.0
 modelscope>=1.18.0
 python-dotenv>=1.0.0
