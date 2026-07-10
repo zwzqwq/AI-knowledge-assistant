@@ -1,0 +1,3114 @@
+{
+  "nodes": {
+    "InnoDB": {
+      "count": 5
+    },
+    "MySQL": {
+      "count": 2
+    },
+    "事务": {
+      "count": 5
+    },
+    "行级锁": {
+      "count": 1
+    },
+    "外键约束": {
+      "count": 1
+    },
+    "可重复读": {
+      "count": 2
+    },
+    "读未提交": {
+      "count": 1
+    },
+    "读已提交": {
+      "count": 1
+    },
+    "串行化": {
+      "count": 1
+    },
+    "MyISAM": {
+      "count": 2
+    },
+    "表级锁": {
+      "count": 1
+    },
+    "Redis Cluster": {
+      "count": 72
+    },
+    "主从复制": {
+      "count": 53
+    },
+    "哨兵模式": {
+      "count": 46
+    },
+    "Master": {
+      "count": 31
+    },
+    "Slave": {
+      "count": 9
+    },
+    "异步复制": {
+      "count": 1
+    },
+    "Sentinel": {
+      "count": 19
+    },
+    "手动故障转移": {
+      "count": 4
+    },
+    "监控": {
+      "count": 1
+    },
+    "故障转移": {
+      "count": 31
+    },
+    "Sentinel 1": {
+      "count": 16
+    },
+    "A": {
+      "count": 6
+    },
+    "B": {
+      "count": 4
+    },
+    "C": {
+      "count": 4
+    },
+    "Sentinel 2": {
+      "count": 10
+    },
+    "Client": {
+      "count": 15
+    },
+    "哨兵": {
+      "count": 67
+    },
+    "自动故障转移": {
+      "count": 7
+    },
+    "单主": {
+      "count": 3
+    },
+    "写瓶颈": {
+      "count": 1
+    },
+    "Master 1": {
+      "count": 14
+    },
+    "Master 2": {
+      "count": 10
+    },
+    "Master 3": {
+      "count": 14
+    },
+    "Slave 1": {
+      "count": 8
+    },
+    "Slave 2": {
+      "count": 7
+    },
+    "Slave 3": {
+      "count": 9
+    },
+    "Shard 1": {
+      "count": 3
+    },
+    "Shard 2": {
+      "count": 3
+    },
+    "Shard 3": {
+      "count": 3
+    },
+    "Gossip协议": {
+      "count": 2
+    },
+    "多主多从": {
+      "count": 4
+    },
+    "每个分片独立主从": {
+      "count": 1
+    },
+    "从节点": {
+      "count": 103
+    },
+    "备份": {
+      "count": 1
+    },
+    "数据自动分片": {
+      "count": 2
+    },
+    "16384个槽": {
+      "count": 4
+    },
+    "内置故障转移": {
+      "count": 1
+    },
+    "Redis架构演进": {
+      "count": 4
+    },
+    "全量复制": {
+      "count": 8
+    },
+    "单点写入": {
+      "count": 8
+    },
+    "自动故障转移(哨兵决策)": {
+      "count": 1
+    },
+    "分片存储": {
+      "count": 4
+    },
+    "自动故障转移(节点投票)": {
+      "count": 1
+    },
+    "多主节点并行写入": {
+      "count": 4
+    },
+    "端口号": {
+      "count": 5
+    },
+    "命令区别": {
+      "count": 5
+    },
+    "配置文件": {
+      "count": 13
+    },
+    "cluster-enabled yes": {
+      "count": 2
+    },
+    "cluster-config-file nodes.conf": {
+      "count": 2
+    },
+    "Redis": {
+      "count": 4
+    },
+    "Redis从节点": {
+      "count": 3
+    },
+    "masterauth": {
+      "count": 26
+    },
+    "密码": {
+      "count": 4
+    },
+    "replica-read-only": {
+      "count": 11
+    },
+    "REPLICAOF": {
+      "count": 5
+    },
+    "复制关系": {
+      "count": 7
+    },
+    "CONFIG SET": {
+      "count": 4
+    },
+    "Redis主节点": {
+      "count": 1
+    },
+    "主节点": {
+      "count": 98
+    },
+    "requirepass": {
+      "count": 19
+    },
+    "replicaof": {
+      "count": 14
+    },
+    "replica-serve-stale-data": {
+      "count": 3
+    },
+    "只读": {
+      "count": 1
+    },
+    "repl-diskless-sync": {
+      "count": 4
+    },
+    "无盘复制": {
+      "count": 5
+    },
+    "SSD": {
+      "count": 3
+    },
+    "普通磁盘": {
+      "count": 2
+    },
+    "repl-backlog-size": {
+      "count": 8
+    },
+    "复制积压缓冲区": {
+      "count": 4
+    },
+    "min-replicas-to-write": {
+      "count": 9
+    },
+    "repl-ping-replica-period": {
+      "count": 5
+    },
+    "主从状态": {
+      "count": 3
+    },
+    "replication": {
+      "count": 3
+    },
+    "增量同步": {
+      "count": 4
+    },
+    "全量同步": {
+      "count": 8
+    },
+    "密码认证": {
+      "count": 8
+    },
+    "持久化": {
+      "count": 14
+    },
+    "RDB": {
+      "count": 4
+    },
+    "AOF": {
+      "count": 4
+    },
+    "master_link_status": {
+      "count": 10
+    },
+    "Redis主从复制": {
+      "count": 11
+    },
+    "slave_repl_offset": {
+      "count": 2
+    },
+    "master_last_io_seconds_ago": {
+      "count": 2
+    },
+    "集群模式": {
+      "count": 4
+    },
+    "Sentinel-1": {
+      "count": 3
+    },
+    "Sentinel-2": {
+      "count": 3
+    },
+    "Sentinel-3": {
+      "count": 3
+    },
+    "Replica-1": {
+      "count": 3
+    },
+    "Replica-2": {
+      "count": 6
+    },
+    "redis-master.conf": {
+      "count": 6
+    },
+    "redis-replica.conf": {
+      "count": 6
+    },
+    "sentinel.conf": {
+      "count": 25
+    },
+    "哨兵配置": {
+      "count": 2
+    },
+    "sentinel monitor": {
+      "count": 10
+    },
+    "quorum": {
+      "count": 6
+    },
+    "sentinel auth-pass": {
+      "count": 13
+    },
+    "主节点密码": {
+      "count": 10
+    },
+    "down-after-milliseconds": {
+      "count": 3
+    },
+    "Redis主从节点": {
+      "count": 9
+    },
+    "failover-timeout": {
+      "count": 3
+    },
+    "parallel-syncs": {
+      "count": 3
+    },
+    "notification-script": {
+      "count": 2
+    },
+    "事件": {
+      "count": 2
+    },
+    "redis-server": {
+      "count": 6
+    },
+    "redis-sentinel": {
+      "count": 11
+    },
+    "sentinel1.conf": {
+      "count": 3
+    },
+    "sentinel2.conf": {
+      "count": 5
+    },
+    "sentinel3.conf": {
+      "count": 5
+    },
+    "端口": {
+      "count": 3
+    },
+    "redis-cli": {
+      "count": 14
+    },
+    "26379": {
+      "count": 2
+    },
+    "info sentinel": {
+      "count": 2
+    },
+    "sentinel_masters": {
+      "count": 2
+    },
+    "sentinel_tilt": {
+      "count": 2
+    },
+    "sentinel_running_scripts": {
+      "count": 2
+    },
+    "master0": {
+      "count": 2
+    },
+    "mymaster": {
+      "count": 35
+    },
+    "Redisson": {
+      "count": 11
+    },
+    "投票": {
+      "count": 3
+    },
+    "Leader选举": {
+      "count": 1
+    },
+    "选择从节点": {
+      "count": 1
+    },
+    "slave": {
+      "count": 13
+    },
+    "master": {
+      "count": 9
+    },
+    "failover-state-send-slaveof-noone": {
+      "count": 2
+    },
+    "failover-state-wait-promotion": {
+      "count": 2
+    },
+    "promoted-slave": {
+      "count": 2
+    },
+    "failover-state-reconf-slaves": {
+      "count": 2
+    },
+    "sentinel get-master-addr-by-name": {
+      "count": 4
+    },
+    "master123": {
+      "count": 5
+    },
+    "sentinel_known_slaves": {
+      "count": 4
+    },
+    "sentinel_known_sentinels": {
+      "count": 4
+    },
+    "脑裂": {
+      "count": 1
+    },
+    "Redis哨兵集群": {
+      "count": 7
+    },
+    "数据分片": {
+      "count": 5
+    },
+    "手动": {
+      "count": 3
+    },
+    "1主1从": {
+      "count": 3
+    },
+    "自动（哨兵决策）": {
+      "count": 3
+    },
+    "1主1从+3哨兵": {
+      "count": 3
+    },
+    "自动（节点投票）": {
+      "count": 3
+    },
+    "3主3从": {
+      "count": 3
+    },
+    "客户端": {
+      "count": 1
+    },
+    "命令": {
+      "count": 1
+    },
+    "cluster-enabled": {
+      "count": 2
+    },
+    "cluster-config-file": {
+      "count": 3
+    },
+    "nodes.conf": {
+      "count": 1
+    },
+    "redis.conf": {
+      "count": 2
+    },
+    "master.conf": {
+      "count": 4
+    },
+    "bind": {
+      "count": 2
+    },
+    "port": {
+      "count": 3
+    },
+    "daemonize": {
+      "count": 3
+    },
+    "appendonly": {
+      "count": 2
+    },
+    "主节点地址": {
+      "count": 2
+    },
+    "INFO replication": {
+      "count": 2
+    },
+    "主从切换": {
+      "count": 2
+    },
+    "数据不一致": {
+      "count": 1
+    },
+    "监控指标": {
+      "count": 3
+    },
+    "高可用": {
+      "count": 2
+    },
+    "Replica": {
+      "count": 2
+    },
+    "M": {
+      "count": 2
+    },
+    "logfile": {
+      "count": 1
+    },
+    "127.0.0.1": {
+      "count": 3
+    },
+    "6379": {
+      "count": 1
+    },
+    "sentinel down-after-milliseconds": {
+      "count": 2
+    },
+    "sentinel failover-timeout": {
+      "count": 2
+    },
+    "sentinel parallel-syncs": {
+      "count": 2
+    },
+    "哨兵数": {
+      "count": 2
+    },
+    "哨兵实例": {
+      "count": 2
+    },
+    "26380": {
+      "count": 1
+    },
+    "26381": {
+      "count": 1
+    },
+    "哨兵状态": {
+      "count": 5
+    },
+    "127.0.0.1:6379": {
+      "count": 5
+    },
+    "127.0.0.1:26379": {
+      "count": 3
+    },
+    "127.0.0.1:26380": {
+      "count": 2
+    },
+    "哨兵1": {
+      "count": 3
+    },
+    "哨兵日志": {
+      "count": 2
+    },
+    "主节点127.0.0.1:6379": {
+      "count": 3
+    },
+    "从节点127.0.0.1:6380": {
+      "count": 1
+    },
+    "领导者选举": {
+      "count": 2
+    },
+    "failover": {
+      "count": 3
+    },
+    "NTP服务": {
+      "count": 3
+    },
+    "sentinel deny-scripts-reconfig": {
+      "count": 3
+    },
+    "脑裂问题": {
+      "count": 2
+    },
+    "replica-announce-ip": {
+      "count": 3
+    },
+    "replica-announce-port": {
+      "count": 3
+    },
+    "哨兵节点": {
+      "count": 2
+    },
+    "从节点备份": {
+      "count": 1
+    },
+    "数据分布": {
+      "count": 6
+    },
+    "写扩展性": {
+      "count": 6
+    },
+    "最小节点数": {
+      "count": 6
+    },
+    "REPLICAOF NO ONE": {
+      "count": 1
+    },
+    "master_host": {
+      "count": 1
+    },
+    "master_port": {
+      "count": 1
+    },
+    "从节点数量": {
+      "count": 1
+    },
+    "端口6379": {
+      "count": 5
+    },
+    "端口6380": {
+      "count": 3
+    },
+    "sentinel": {
+      "count": 1
+    },
+    "shutdown": {
+      "count": 1
+    },
+    "日志": {
+      "count": 1
+    },
+    "选举": {
+      "count": 1
+    },
+    "Redis Sentinel": {
+      "count": 6
+    },
+    "127.0.0.1:6380": {
+      "count": 2
+    },
+    "客户端复杂度": {
+      "count": 1
+    },
+    "连续端口": {
+      "count": 1
+    },
+    "非集群模式": {
+      "count": 1
+    },
+    "replica.conf": {
+      "count": 8
+    },
+    "作用域": {
+      "count": 1
+    },
+    "role": {
+      "count": 1
+    },
+    "connected_slaves": {
+      "count": 1
+    },
+    "slave0": {
+      "count": 1
+    },
+    "节点": {
+      "count": 1
+    },
+    "生产环境": {
+      "count": 1
+    },
+    "sentinel1.log": {
+      "count": 1
+    },
+    "vote-for-leader": {
+      "count": 1
+    },
+    "elected-leader": {
+      "count": 1
+    },
+    "failover-state-select-slave": {
+      "count": 1
+    },
+    "selected-slave": {
+      "count": 2
+    },
+    "运行时配置": {
+      "count": 1
+    }
+  },
+  "edges": [
+    {
+      "source": "InnoDB",
+      "target": "MySQL",
+      "relation": "属于",
+      "weight": 1
+    },
+    {
+      "source": "InnoDB",
+      "target": "事务",
+      "relation": "支持",
+      "weight": 1
+    },
+    {
+      "source": "InnoDB",
+      "target": "行级锁",
+      "relation": "支持",
+      "weight": 1
+    },
+    {
+      "source": "InnoDB",
+      "target": "外键约束",
+      "relation": "支持",
+      "weight": 1
+    },
+    {
+      "source": "事务",
+      "target": "读未提交",
+      "relation": "包含隔离级别",
+      "weight": 1
+    },
+    {
+      "source": "事务",
+      "target": "读已提交",
+      "relation": "包含隔离级别",
+      "weight": 1
+    },
+    {
+      "source": "事务",
+      "target": "可重复读",
+      "relation": "包含隔离级别",
+      "weight": 1
+    },
+    {
+      "source": "事务",
+      "target": "串行化",
+      "relation": "包含隔离级别",
+      "weight": 1
+    },
+    {
+      "source": "可重复读",
+      "target": "InnoDB",
+      "relation": "默认隔离级别",
+      "weight": 1
+    },
+    {
+      "source": "MyISAM",
+      "target": "MySQL",
+      "relation": "属于",
+      "weight": 1
+    },
+    {
+      "source": "MyISAM",
+      "target": "表级锁",
+      "relation": "使用",
+      "weight": 1
+    },
+    {
+      "source": "Redis Cluster",
+      "target": "主从复制",
+      "relation": "属于",
+      "weight": 6
+    },
+    {
+      "source": "Redis Cluster",
+      "target": "哨兵模式",
+      "relation": "属于",
+      "weight": 3
+    },
+    {
+      "source": "Redis Cluster",
+      "target": "Master 1",
+      "relation": "包含",
+      "weight": 2
+    },
+    {
+      "source": "Redis Cluster",
+      "target": "Master 2",
+      "relation": "包含",
+      "weight": 2
+    },
+    {
+      "source": "Redis Cluster",
+      "target": "Master 3",
+      "relation": "包含",
+      "weight": 2
+    },
+    {
+      "source": "Redis Cluster",
+      "target": "多主多从",
+      "relation": "具有",
+      "weight": 4
+    },
+    {
+      "source": "Redis Cluster",
+      "target": "每个分片独立主从",
+      "relation": "具有",
+      "weight": 1
+    },
+    {
+      "source": "Redis Cluster",
+      "target": "数据自动分片",
+      "relation": "支持",
+      "weight": 1
+    },
+    {
+      "source": "Redis Cluster",
+      "target": "内置故障转移",
+      "relation": "支持",
+      "weight": 1
+    },
+    {
+      "source": "Redis Cluster",
+      "target": "分片存储",
+      "relation": "数据分布方式为",
+      "weight": 4
+    },
+    {
+      "source": "Redis Cluster",
+      "target": "自动故障转移(节点投票)",
+      "relation": "故障转移方式为",
+      "weight": 1
+    },
+    {
+      "source": "Redis Cluster",
+      "target": "多主节点并行写入",
+      "relation": "写扩展方式为",
+      "weight": 4
+    },
+    {
+      "source": "Redis Cluster",
+      "target": "端口号",
+      "relation": "包含识别特征",
+      "weight": 3
+    },
+    {
+      "source": "Redis Cluster",
+      "target": "命令区别",
+      "relation": "包含识别特征",
+      "weight": 2
+    },
+    {
+      "source": "Redis Cluster",
+      "target": "配置文件",
+      "relation": "包含识别特征",
+      "weight": 3
+    },
+    {
+      "source": "Redis Cluster",
+      "target": "Redis",
+      "relation": "属于",
+      "weight": 1
+    },
+    {
+      "source": "Redis Cluster",
+      "target": "数据分片",
+      "relation": "支持",
+      "weight": 3
+    },
+    {
+      "source": "Redis Cluster",
+      "target": "故障转移",
+      "relation": "内置",
+      "weight": 5
+    },
+    {
+      "source": "Redis Cluster",
+      "target": "自动（节点投票）",
+      "relation": "故障转移为",
+      "weight": 3
+    },
+    {
+      "source": "Redis Cluster",
+      "target": "3主3从",
+      "relation": "最小节点数为",
+      "weight": 3
+    },
+    {
+      "source": "Redis Cluster",
+      "target": "客户端",
+      "relation": "需要",
+      "weight": 1
+    },
+    {
+      "source": "Redis Cluster",
+      "target": "命令",
+      "relation": "支持",
+      "weight": 1
+    },
+    {
+      "source": "Redis Cluster",
+      "target": "从节点备份",
+      "relation": "仅作为",
+      "weight": 1
+    },
+    {
+      "source": "Redis Cluster",
+      "target": "16384个槽",
+      "relation": "使用",
+      "weight": 1
+    },
+    {
+      "source": "Redis Cluster",
+      "target": "数据分布",
+      "relation": "具有特性",
+      "weight": 2
+    },
+    {
+      "source": "Redis Cluster",
+      "target": "写扩展性",
+      "relation": "具有特性",
+      "weight": 2
+    },
+    {
+      "source": "Redis Cluster",
+      "target": "最小节点数",
+      "relation": "具有特性",
+      "weight": 2
+    },
+    {
+      "source": "Redis Cluster",
+      "target": "客户端复杂度",
+      "relation": "具有",
+      "weight": 1
+    },
+    {
+      "source": "主从复制",
+      "target": "Master",
+      "relation": "包含",
+      "weight": 2
+    },
+    {
+      "source": "主从复制",
+      "target": "Slave",
+      "relation": "包含",
+      "weight": 2
+    },
+    {
+      "source": "主从复制",
+      "target": "哨兵模式",
+      "relation": "演进到",
+      "weight": 4
+    },
+    {
+      "source": "主从复制",
+      "target": "全量复制",
+      "relation": "数据分布方式为",
+      "weight": 4
+    },
+    {
+      "source": "主从复制",
+      "target": "手动故障转移",
+      "relation": "故障转移方式为",
+      "weight": 3
+    },
+    {
+      "source": "主从复制",
+      "target": "单点写入",
+      "relation": "写扩展方式为",
+      "weight": 4
+    },
+    {
+      "source": "主从复制",
+      "target": "Redis",
+      "relation": "属于",
+      "weight": 1
+    },
+    {
+      "source": "主从复制",
+      "target": "Redis Cluster",
+      "relation": "属于",
+      "weight": 1
+    },
+    {
+      "source": "主从复制",
+      "target": "手动",
+      "relation": "故障转移为",
+      "weight": 3
+    },
+    {
+      "source": "主从复制",
+      "target": "1主1从",
+      "relation": "最小节点数为",
+      "weight": 3
+    },
+    {
+      "source": "主从复制",
+      "target": "数据分布",
+      "relation": "具有特性",
+      "weight": 2
+    },
+    {
+      "source": "主从复制",
+      "target": "故障转移",
+      "relation": "具有特性",
+      "weight": 2
+    },
+    {
+      "source": "主从复制",
+      "target": "写扩展性",
+      "relation": "具有特性",
+      "weight": 2
+    },
+    {
+      "source": "主从复制",
+      "target": "最小节点数",
+      "relation": "具有特性",
+      "weight": 2
+    },
+    {
+      "source": "主从复制",
+      "target": "主节点",
+      "relation": "包含",
+      "weight": 1
+    },
+    {
+      "source": "主从复制",
+      "target": "从节点",
+      "relation": "包含",
+      "weight": 1
+    },
+    {
+      "source": "哨兵模式",
+      "target": "Sentinel",
+      "relation": "包含",
+      "weight": 2
+    },
+    {
+      "source": "哨兵模式",
+      "target": "全量复制",
+      "relation": "数据分布方式为",
+      "weight": 4
+    },
+    {
+      "source": "哨兵模式",
+      "target": "自动故障转移(哨兵决策)",
+      "relation": "故障转移方式为",
+      "weight": 1
+    },
+    {
+      "source": "哨兵模式",
+      "target": "单点写入",
+      "relation": "写扩展方式为",
+      "weight": 4
+    },
+    {
+      "source": "哨兵模式",
+      "target": "Redis",
+      "relation": "属于",
+      "weight": 1
+    },
+    {
+      "source": "哨兵模式",
+      "target": "Redis Cluster",
+      "relation": "属于",
+      "weight": 1
+    },
+    {
+      "source": "哨兵模式",
+      "target": "自动（哨兵决策）",
+      "relation": "故障转移为",
+      "weight": 3
+    },
+    {
+      "source": "哨兵模式",
+      "target": "1主1从+3哨兵",
+      "relation": "最小节点数为",
+      "weight": 3
+    },
+    {
+      "source": "哨兵模式",
+      "target": "主从复制",
+      "relation": "基于",
+      "weight": 3
+    },
+    {
+      "source": "哨兵模式",
+      "target": "自动故障转移",
+      "relation": "实现",
+      "weight": 3
+    },
+    {
+      "source": "哨兵模式",
+      "target": "数据分布",
+      "relation": "具有特性",
+      "weight": 2
+    },
+    {
+      "source": "哨兵模式",
+      "target": "故障转移",
+      "relation": "具有特性",
+      "weight": 2
+    },
+    {
+      "source": "哨兵模式",
+      "target": "写扩展性",
+      "relation": "具有特性",
+      "weight": 2
+    },
+    {
+      "source": "哨兵模式",
+      "target": "最小节点数",
+      "relation": "具有特性",
+      "weight": 2
+    },
+    {
+      "source": "哨兵模式",
+      "target": "Redis主从复制",
+      "relation": "升级自",
+      "weight": 1
+    },
+    {
+      "source": "Master",
+      "target": "Slave",
+      "relation": "进行",
+      "weight": 3
+    },
+    {
+      "source": "Master",
+      "target": "Replica-1",
+      "relation": "复制到",
+      "weight": 3
+    },
+    {
+      "source": "Master",
+      "target": "Replica-2",
+      "relation": "复制到",
+      "weight": 3
+    },
+    {
+      "source": "Master",
+      "target": "Replica",
+      "relation": "复制",
+      "weight": 1
+    },
+    {
+      "source": "Master",
+      "target": "Slave 1",
+      "relation": "异步复制",
+      "weight": 1
+    },
+    {
+      "source": "Master",
+      "target": "Slave 2",
+      "relation": "异步复制",
+      "weight": 1
+    },
+    {
+      "source": "Master",
+      "target": "Master",
+      "relation": "通过Gossip协议通信",
+      "weight": 1
+    },
+    {
+      "source": "Slave",
+      "target": "Slave",
+      "relation": "通过Gossip协议通信",
+      "weight": 1
+    },
+    {
+      "source": "异步复制",
+      "target": "主从复制",
+      "relation": "用于",
+      "weight": 1
+    },
+    {
+      "source": "Sentinel",
+      "target": "Master",
+      "relation": "执行",
+      "weight": 3
+    },
+    {
+      "source": "Sentinel",
+      "target": "sentinel_masters",
+      "relation": "包含指标",
+      "weight": 1
+    },
+    {
+      "source": "Sentinel",
+      "target": "sentinel_tilt",
+      "relation": "包含指标",
+      "weight": 1
+    },
+    {
+      "source": "Sentinel",
+      "target": "sentinel_running_scripts",
+      "relation": "包含指标",
+      "weight": 1
+    },
+    {
+      "source": "Sentinel",
+      "target": "故障转移",
+      "relation": "执行",
+      "weight": 1
+    },
+    {
+      "source": "Sentinel",
+      "target": "mymaster",
+      "relation": "监控",
+      "weight": 3
+    },
+    {
+      "source": "Sentinel",
+      "target": "Replica",
+      "relation": "监控",
+      "weight": 1
+    },
+    {
+      "source": "Sentinel",
+      "target": "127.0.0.1:6379",
+      "relation": "监控",
+      "weight": 1
+    },
+    {
+      "source": "Sentinel",
+      "target": "failover",
+      "relation": "管理",
+      "weight": 1
+    },
+    {
+      "source": "Sentinel",
+      "target": "Slave",
+      "relation": "监控",
+      "weight": 1
+    },
+    {
+      "source": "手动故障转移",
+      "target": "主从复制",
+      "relation": "是",
+      "weight": 1
+    },
+    {
+      "source": "监控",
+      "target": "哨兵模式",
+      "relation": "实现",
+      "weight": 1
+    },
+    {
+      "source": "故障转移",
+      "target": "哨兵模式",
+      "relation": "实现",
+      "weight": 1
+    },
+    {
+      "source": "故障转移",
+      "target": "主节点",
+      "relation": "切换",
+      "weight": 2
+    },
+    {
+      "source": "故障转移",
+      "target": "投票",
+      "relation": "包含",
+      "weight": 1
+    },
+    {
+      "source": "故障转移",
+      "target": "选择从节点",
+      "relation": "包含",
+      "weight": 1
+    },
+    {
+      "source": "故障转移",
+      "target": "master",
+      "relation": "涉及",
+      "weight": 1
+    },
+    {
+      "source": "故障转移",
+      "target": "slave",
+      "relation": "涉及",
+      "weight": 1
+    },
+    {
+      "source": "故障转移",
+      "target": "Redis哨兵集群",
+      "relation": "确保功能",
+      "weight": 1
+    },
+    {
+      "source": "Sentinel 1",
+      "target": "A",
+      "relation": "监控",
+      "weight": 2
+    },
+    {
+      "source": "Sentinel 1",
+      "target": "B",
+      "relation": "监控",
+      "weight": 2
+    },
+    {
+      "source": "Sentinel 1",
+      "target": "C",
+      "relation": "监控",
+      "weight": 2
+    },
+    {
+      "source": "Sentinel 1",
+      "target": "Master",
+      "relation": "监控",
+      "weight": 1
+    },
+    {
+      "source": "Sentinel 1",
+      "target": "Slave 1",
+      "relation": "监控",
+      "weight": 1
+    },
+    {
+      "source": "Sentinel 1",
+      "target": "Master 1",
+      "relation": "监控",
+      "weight": 2
+    },
+    {
+      "source": "Sentinel 1",
+      "target": "Master 2",
+      "relation": "监控",
+      "weight": 1
+    },
+    {
+      "source": "Sentinel 1",
+      "target": "Master 3",
+      "relation": "监控",
+      "weight": 1
+    },
+    {
+      "source": "Sentinel 2",
+      "target": "A",
+      "relation": "监控",
+      "weight": 2
+    },
+    {
+      "source": "Sentinel 2",
+      "target": "B",
+      "relation": "监控",
+      "weight": 2
+    },
+    {
+      "source": "Sentinel 2",
+      "target": "C",
+      "relation": "监控",
+      "weight": 2
+    },
+    {
+      "source": "Sentinel 2",
+      "target": "Master 1",
+      "relation": "监控",
+      "weight": 2
+    },
+    {
+      "source": "Sentinel 2",
+      "target": "Master 2",
+      "relation": "监控",
+      "weight": 1
+    },
+    {
+      "source": "Sentinel 2",
+      "target": "Master 3",
+      "relation": "监控",
+      "weight": 1
+    },
+    {
+      "source": "Client",
+      "target": "Sentinel 1",
+      "relation": "查询主节点地址",
+      "weight": 4
+    },
+    {
+      "source": "Client",
+      "target": "A",
+      "relation": "读写",
+      "weight": 2
+    },
+    {
+      "source": "Client",
+      "target": "Master 3",
+      "relation": "写入到",
+      "weight": 1
+    },
+    {
+      "source": "Client",
+      "target": "Slave 3",
+      "relation": "写入到",
+      "weight": 1
+    },
+    {
+      "source": "Client",
+      "target": "Master",
+      "relation": "读写",
+      "weight": 2
+    },
+    {
+      "source": "Client",
+      "target": "Slave 1",
+      "relation": "只读",
+      "weight": 1
+    },
+    {
+      "source": "Client",
+      "target": "Slave 2",
+      "relation": "只读",
+      "weight": 1
+    },
+    {
+      "source": "Client",
+      "target": "Master 1",
+      "relation": "读写",
+      "weight": 2
+    },
+    {
+      "source": "Client",
+      "target": "Slave",
+      "relation": "只读",
+      "weight": 1
+    },
+    {
+      "source": "哨兵",
+      "target": "自动故障转移",
+      "relation": "支持",
+      "weight": 2
+    },
+    {
+      "source": "哨兵",
+      "target": "单主",
+      "relation": "保持",
+      "weight": 2
+    },
+    {
+      "source": "哨兵",
+      "target": "主节点",
+      "relation": "监控",
+      "weight": 8
+    },
+    {
+      "source": "哨兵",
+      "target": "从节点",
+      "relation": "监控",
+      "weight": 10
+    },
+    {
+      "source": "哨兵",
+      "target": "故障转移",
+      "relation": "触发",
+      "weight": 3
+    },
+    {
+      "source": "哨兵",
+      "target": "Redis主从节点",
+      "relation": "管理",
+      "weight": 4
+    },
+    {
+      "source": "哨兵",
+      "target": "sentinel.conf",
+      "relation": "配置于",
+      "weight": 6
+    },
+    {
+      "source": "哨兵",
+      "target": "sentinel_known_slaves",
+      "relation": "监控",
+      "weight": 4
+    },
+    {
+      "source": "哨兵",
+      "target": "sentinel_known_sentinels",
+      "relation": "监控",
+      "weight": 4
+    },
+    {
+      "source": "哨兵",
+      "target": "master_link_status",
+      "relation": "监控",
+      "weight": 4
+    },
+    {
+      "source": "哨兵",
+      "target": "脑裂",
+      "relation": "处理",
+      "weight": 1
+    },
+    {
+      "source": "哨兵",
+      "target": "mymaster",
+      "relation": "监控",
+      "weight": 2
+    },
+    {
+      "source": "哨兵",
+      "target": "日志",
+      "relation": "生成",
+      "weight": 1
+    },
+    {
+      "source": "哨兵",
+      "target": "NTP服务",
+      "relation": "依赖",
+      "weight": 2
+    },
+    {
+      "source": "哨兵",
+      "target": "sentinel deny-scripts-reconfig",
+      "relation": "配置",
+      "weight": 2
+    },
+    {
+      "source": "哨兵",
+      "target": "Redis哨兵集群",
+      "relation": "属于",
+      "weight": 1
+    },
+    {
+      "source": "单主",
+      "target": "写瓶颈",
+      "relation": "导致",
+      "weight": 1
+    },
+    {
+      "source": "Master 1",
+      "target": "Slave 1",
+      "relation": "复制到",
+      "weight": 4
+    },
+    {
+      "source": "Master 2",
+      "target": "Slave 2",
+      "relation": "复制到",
+      "weight": 4
+    },
+    {
+      "source": "Master 3",
+      "target": "Slave 3",
+      "relation": "复制到",
+      "weight": 6
+    },
+    {
+      "source": "Shard 1",
+      "target": "Master 1",
+      "relation": "包含",
+      "weight": 2
+    },
+    {
+      "source": "Shard 1",
+      "target": "Slave 1",
+      "relation": "包含",
+      "weight": 1
+    },
+    {
+      "source": "Shard 2",
+      "target": "Master 2",
+      "relation": "包含",
+      "weight": 2
+    },
+    {
+      "source": "Shard 2",
+      "target": "Slave 2",
+      "relation": "包含",
+      "weight": 1
+    },
+    {
+      "source": "Shard 3",
+      "target": "Master 3",
+      "relation": "包含",
+      "weight": 2
+    },
+    {
+      "source": "Shard 3",
+      "target": "Slave 3",
+      "relation": "包含",
+      "weight": 1
+    },
+    {
+      "source": "Gossip协议",
+      "target": "Master 3",
+      "relation": "被使用",
+      "weight": 1
+    },
+    {
+      "source": "Gossip协议",
+      "target": "Slave 3",
+      "relation": "被使用",
+      "weight": 1
+    },
+    {
+      "source": "从节点",
+      "target": "备份",
+      "relation": "作为",
+      "weight": 1
+    },
+    {
+      "source": "从节点",
+      "target": "replicaof",
+      "relation": "指定主节点",
+      "weight": 3
+    },
+    {
+      "source": "从节点",
+      "target": "masterauth",
+      "relation": "认证主节点密码",
+      "weight": 2
+    },
+    {
+      "source": "从节点",
+      "target": "replica-serve-stale-data",
+      "relation": "配置服务旧数据",
+      "weight": 2
+    },
+    {
+      "source": "从节点",
+      "target": "replica-read-only",
+      "relation": "配置只读模式",
+      "weight": 2
+    },
+    {
+      "source": "从节点",
+      "target": "主节点",
+      "relation": "复制自",
+      "weight": 15
+    },
+    {
+      "source": "从节点",
+      "target": "密码认证",
+      "relation": "需要",
+      "weight": 4
+    },
+    {
+      "source": "从节点",
+      "target": "Redis主从复制",
+      "relation": "组成",
+      "weight": 1
+    },
+    {
+      "source": "从节点",
+      "target": "哨兵",
+      "relation": "由...管理",
+      "weight": 1
+    },
+    {
+      "source": "从节点",
+      "target": "高可用",
+      "relation": "保证",
+      "weight": 2
+    },
+    {
+      "source": "从节点",
+      "target": "REPLICAOF NO ONE",
+      "relation": "执行",
+      "weight": 1
+    },
+    {
+      "source": "从节点",
+      "target": "REPLICAOF",
+      "relation": "执行",
+      "weight": 1
+    },
+    {
+      "source": "从节点",
+      "target": "master_host",
+      "relation": "具有",
+      "weight": 1
+    },
+    {
+      "source": "从节点",
+      "target": "master_port",
+      "relation": "具有",
+      "weight": 1
+    },
+    {
+      "source": "从节点",
+      "target": "master_link_status",
+      "relation": "具有",
+      "weight": 1
+    },
+    {
+      "source": "从节点",
+      "target": "增量同步",
+      "relation": "尝试",
+      "weight": 2
+    },
+    {
+      "source": "从节点",
+      "target": "全量同步",
+      "relation": "触发",
+      "weight": 1
+    },
+    {
+      "source": "从节点",
+      "target": "端口6379",
+      "relation": "连接",
+      "weight": 1
+    },
+    {
+      "source": "从节点",
+      "target": "端口6380",
+      "relation": "使用",
+      "weight": 2
+    },
+    {
+      "source": "从节点",
+      "target": "replica-announce-ip",
+      "relation": "配置",
+      "weight": 2
+    },
+    {
+      "source": "从节点",
+      "target": "replica-announce-port",
+      "relation": "配置",
+      "weight": 2
+    },
+    {
+      "source": "从节点",
+      "target": "replica.conf",
+      "relation": "使用",
+      "weight": 1
+    },
+    {
+      "source": "从节点",
+      "target": "复制关系",
+      "relation": "停止",
+      "weight": 1
+    },
+    {
+      "source": "从节点",
+      "target": "redis-replica.conf",
+      "relation": "使用配置",
+      "weight": 1
+    },
+    {
+      "source": "数据自动分片",
+      "target": "16384个槽",
+      "relation": "使用",
+      "weight": 1
+    },
+    {
+      "source": "Redis架构演进",
+      "target": "主从复制",
+      "relation": "包含",
+      "weight": 2
+    },
+    {
+      "source": "Redis架构演进",
+      "target": "Redis Cluster",
+      "relation": "包含",
+      "weight": 2
+    },
+    {
+      "source": "端口号",
+      "target": "Redis Cluster",
+      "relation": "识别",
+      "weight": 1
+    },
+    {
+      "source": "端口号",
+      "target": "连续端口",
+      "relation": "示例为",
+      "weight": 1
+    },
+    {
+      "source": "命令区别",
+      "target": "Redis Cluster",
+      "relation": "识别",
+      "weight": 1
+    },
+    {
+      "source": "命令区别",
+      "target": "非集群模式",
+      "relation": "区分",
+      "weight": 1
+    },
+    {
+      "source": "命令区别",
+      "target": "集群模式",
+      "relation": "区分",
+      "weight": 1
+    },
+    {
+      "source": "配置文件",
+      "target": "cluster-enabled yes",
+      "relation": "包含配置项",
+      "weight": 2
+    },
+    {
+      "source": "配置文件",
+      "target": "cluster-config-file nodes.conf",
+      "relation": "包含配置项",
+      "weight": 2
+    },
+    {
+      "source": "配置文件",
+      "target": "cluster-enabled",
+      "relation": "包含",
+      "weight": 1
+    },
+    {
+      "source": "配置文件",
+      "target": "cluster-config-file",
+      "relation": "包含",
+      "weight": 1
+    },
+    {
+      "source": "配置文件",
+      "target": "Redis Cluster",
+      "relation": "识别",
+      "weight": 1
+    },
+    {
+      "source": "Redis",
+      "target": "主从复制",
+      "relation": "支持",
+      "weight": 1
+    },
+    {
+      "source": "Redis从节点",
+      "target": "masterauth",
+      "relation": "使用",
+      "weight": 1
+    },
+    {
+      "source": "Redis从节点",
+      "target": "replica-read-only",
+      "relation": "配置",
+      "weight": 1
+    },
+    {
+      "source": "masterauth",
+      "target": "密码",
+      "relation": "设置",
+      "weight": 4
+    },
+    {
+      "source": "masterauth",
+      "target": "主节点",
+      "relation": "验证",
+      "weight": 6
+    },
+    {
+      "source": "masterauth",
+      "target": "主节点密码",
+      "relation": "设置",
+      "weight": 2
+    },
+    {
+      "source": "masterauth",
+      "target": "requirepass",
+      "relation": "保持一致",
+      "weight": 4
+    },
+    {
+      "source": "masterauth",
+      "target": "从节点",
+      "relation": "配置于",
+      "weight": 1
+    },
+    {
+      "source": "masterauth",
+      "target": "主从复制",
+      "relation": "用于",
+      "weight": 1
+    },
+    {
+      "source": "replica-read-only",
+      "target": "从节点",
+      "relation": "控制",
+      "weight": 6
+    },
+    {
+      "source": "replica-read-only",
+      "target": "只读",
+      "relation": "设置",
+      "weight": 1
+    },
+    {
+      "source": "REPLICAOF",
+      "target": "复制关系",
+      "relation": "建立",
+      "weight": 3
+    },
+    {
+      "source": "REPLICAOF",
+      "target": "从节点",
+      "relation": "执行",
+      "weight": 1
+    },
+    {
+      "source": "复制关系",
+      "target": "从节点",
+      "relation": "连接",
+      "weight": 2
+    },
+    {
+      "source": "复制关系",
+      "target": "主节点",
+      "relation": "连接",
+      "weight": 1
+    },
+    {
+      "source": "CONFIG SET",
+      "target": "masterauth",
+      "relation": "配置",
+      "weight": 3
+    },
+    {
+      "source": "CONFIG SET",
+      "target": "主节点密码",
+      "relation": "设置",
+      "weight": 1
+    },
+    {
+      "source": "Redis主节点",
+      "target": "Redis从节点",
+      "relation": "复制",
+      "weight": 1
+    },
+    {
+      "source": "主节点",
+      "target": "requirepass",
+      "relation": "配置密码",
+      "weight": 3
+    },
+    {
+      "source": "主节点",
+      "target": "从节点",
+      "relation": "被复制",
+      "weight": 10
+    },
+    {
+      "source": "主节点",
+      "target": "增量同步",
+      "relation": "支持",
+      "weight": 2
+    },
+    {
+      "source": "主节点",
+      "target": "全量同步",
+      "relation": "支持",
+      "weight": 3
+    },
+    {
+      "source": "主节点",
+      "target": "密码认证",
+      "relation": "需要",
+      "weight": 4
+    },
+    {
+      "source": "主节点",
+      "target": "持久化",
+      "relation": "需要",
+      "weight": 4
+    },
+    {
+      "source": "主节点",
+      "target": "sentinel monitor",
+      "relation": "被监控于",
+      "weight": 1
+    },
+    {
+      "source": "主节点",
+      "target": "Replica-2",
+      "relation": "复制到",
+      "weight": 1
+    },
+    {
+      "source": "主节点",
+      "target": "端口6379",
+      "relation": "使用",
+      "weight": 2
+    },
+    {
+      "source": "主节点",
+      "target": "masterauth",
+      "relation": "配置",
+      "weight": 1
+    },
+    {
+      "source": "主节点",
+      "target": "mymaster",
+      "relation": "代表",
+      "weight": 1
+    },
+    {
+      "source": "主节点",
+      "target": "min-replicas-to-write",
+      "relation": "配置",
+      "weight": 2
+    },
+    {
+      "source": "主节点",
+      "target": "redis-master.conf",
+      "relation": "使用配置",
+      "weight": 1
+    },
+    {
+      "source": "requirepass",
+      "target": "主节点",
+      "relation": "设置密码",
+      "weight": 4
+    },
+    {
+      "source": "requirepass",
+      "target": "哨兵",
+      "relation": "保护",
+      "weight": 1
+    },
+    {
+      "source": "replicaof",
+      "target": "主节点",
+      "relation": "指定",
+      "weight": 4
+    },
+    {
+      "source": "replicaof",
+      "target": "从节点",
+      "relation": "指定主节点",
+      "weight": 4
+    },
+    {
+      "source": "replicaof",
+      "target": "主节点地址",
+      "relation": "指定",
+      "weight": 2
+    },
+    {
+      "source": "repl-diskless-sync",
+      "target": "无盘复制",
+      "relation": "启用",
+      "weight": 2
+    },
+    {
+      "source": "repl-diskless-sync",
+      "target": "SSD",
+      "relation": "适合",
+      "weight": 1
+    },
+    {
+      "source": "repl-diskless-sync",
+      "target": "普通磁盘",
+      "relation": "不适用",
+      "weight": 1
+    },
+    {
+      "source": "无盘复制",
+      "target": "SSD",
+      "relation": "适合",
+      "weight": 2
+    },
+    {
+      "source": "无盘复制",
+      "target": "普通磁盘",
+      "relation": "不适用",
+      "weight": 1
+    },
+    {
+      "source": "repl-backlog-size",
+      "target": "复制积压缓冲区",
+      "relation": "配置大小",
+      "weight": 4
+    },
+    {
+      "source": "min-replicas-to-write",
+      "target": "主节点",
+      "relation": "控制",
+      "weight": 5
+    },
+    {
+      "source": "min-replicas-to-write",
+      "target": "从节点",
+      "relation": "依赖",
+      "weight": 1
+    },
+    {
+      "source": "min-replicas-to-write",
+      "target": "脑裂问题",
+      "relation": "处理",
+      "weight": 1
+    },
+    {
+      "source": "repl-ping-replica-period",
+      "target": "从节点",
+      "relation": "配置频率",
+      "weight": 4
+    },
+    {
+      "source": "repl-ping-replica-period",
+      "target": "主节点",
+      "relation": "从节点向主节点发送",
+      "weight": 1
+    },
+    {
+      "source": "主从状态",
+      "target": "replication",
+      "relation": "通过验证",
+      "weight": 1
+    },
+    {
+      "source": "主从状态",
+      "target": "主节点",
+      "relation": "描述",
+      "weight": 1
+    },
+    {
+      "source": "主从状态",
+      "target": "从节点",
+      "relation": "描述",
+      "weight": 1
+    },
+    {
+      "source": "replication",
+      "target": "作用域",
+      "relation": "获取",
+      "weight": 1
+    },
+    {
+      "source": "全量同步",
+      "target": "repl-backlog-size",
+      "relation": "依赖于",
+      "weight": 4
+    },
+    {
+      "source": "持久化",
+      "target": "RDB",
+      "relation": "包括",
+      "weight": 4
+    },
+    {
+      "source": "持久化",
+      "target": "AOF",
+      "relation": "包括",
+      "weight": 4
+    },
+    {
+      "source": "master_link_status",
+      "target": "主节点",
+      "relation": "监控",
+      "weight": 2
+    },
+    {
+      "source": "master_link_status",
+      "target": "Redis主从复制",
+      "relation": "属于",
+      "weight": 1
+    },
+    {
+      "source": "master_link_status",
+      "target": "从节点",
+      "relation": "监控",
+      "weight": 1
+    },
+    {
+      "source": "master_link_status",
+      "target": "监控指标",
+      "relation": "属于",
+      "weight": 1
+    },
+    {
+      "source": "Redis主从复制",
+      "target": "哨兵模式",
+      "relation": "升级到",
+      "weight": 2
+    },
+    {
+      "source": "Redis主从复制",
+      "target": "集群模式",
+      "relation": "升级到",
+      "weight": 2
+    },
+    {
+      "source": "Redis主从复制",
+      "target": "自动故障转移",
+      "relation": "支持",
+      "weight": 1
+    },
+    {
+      "source": "slave_repl_offset",
+      "target": "Redis主从复制",
+      "relation": "属于",
+      "weight": 1
+    },
+    {
+      "source": "slave_repl_offset",
+      "target": "监控指标",
+      "relation": "属于",
+      "weight": 1
+    },
+    {
+      "source": "master_last_io_seconds_ago",
+      "target": "Redis主从复制",
+      "relation": "属于",
+      "weight": 1
+    },
+    {
+      "source": "master_last_io_seconds_ago",
+      "target": "监控指标",
+      "relation": "属于",
+      "weight": 1
+    },
+    {
+      "source": "集群模式",
+      "target": "自动故障转移",
+      "relation": "实现",
+      "weight": 1
+    },
+    {
+      "source": "Sentinel-1",
+      "target": "Master",
+      "relation": "监控",
+      "weight": 3
+    },
+    {
+      "source": "Sentinel-2",
+      "target": "Master",
+      "relation": "监控",
+      "weight": 3
+    },
+    {
+      "source": "Sentinel-3",
+      "target": "Master",
+      "relation": "监控",
+      "weight": 3
+    },
+    {
+      "source": "redis-master.conf",
+      "target": "主节点",
+      "relation": "配置",
+      "weight": 2
+    },
+    {
+      "source": "redis-replica.conf",
+      "target": "从节点",
+      "relation": "配置",
+      "weight": 2
+    },
+    {
+      "source": "sentinel.conf",
+      "target": "哨兵",
+      "relation": "配置",
+      "weight": 3
+    },
+    {
+      "source": "sentinel.conf",
+      "target": "requirepass",
+      "relation": "包含",
+      "weight": 3
+    },
+    {
+      "source": "sentinel.conf",
+      "target": "sentinel auth-pass",
+      "relation": "包含",
+      "weight": 4
+    },
+    {
+      "source": "sentinel.conf",
+      "target": "port",
+      "relation": "包含",
+      "weight": 1
+    },
+    {
+      "source": "sentinel.conf",
+      "target": "daemonize",
+      "relation": "包含",
+      "weight": 1
+    },
+    {
+      "source": "sentinel.conf",
+      "target": "logfile",
+      "relation": "包含",
+      "weight": 1
+    },
+    {
+      "source": "sentinel.conf",
+      "target": "sentinel monitor",
+      "relation": "包含",
+      "weight": 1
+    },
+    {
+      "source": "sentinel.conf",
+      "target": "sentinel down-after-milliseconds",
+      "relation": "包含",
+      "weight": 1
+    },
+    {
+      "source": "sentinel.conf",
+      "target": "sentinel failover-timeout",
+      "relation": "包含",
+      "weight": 1
+    },
+    {
+      "source": "sentinel.conf",
+      "target": "sentinel parallel-syncs",
+      "relation": "包含",
+      "weight": 1
+    },
+    {
+      "source": "哨兵配置",
+      "target": "sentinel.conf",
+      "relation": "配置于",
+      "weight": 2
+    },
+    {
+      "source": "sentinel monitor",
+      "target": "mymaster",
+      "relation": "监控",
+      "weight": 1
+    },
+    {
+      "source": "sentinel monitor",
+      "target": "127.0.0.1",
+      "relation": "指定IP",
+      "weight": 1
+    },
+    {
+      "source": "sentinel monitor",
+      "target": "6379",
+      "relation": "指定端口",
+      "weight": 1
+    },
+    {
+      "source": "sentinel monitor",
+      "target": "故障转移",
+      "relation": "触发条件",
+      "weight": 1
+    },
+    {
+      "source": "sentinel monitor",
+      "target": "主节点",
+      "relation": "定义",
+      "weight": 3
+    },
+    {
+      "source": "sentinel monitor",
+      "target": "quorum",
+      "relation": "包含",
+      "weight": 1
+    },
+    {
+      "source": "quorum",
+      "target": "哨兵",
+      "relation": "关联于",
+      "weight": 2
+    },
+    {
+      "source": "quorum",
+      "target": "哨兵数",
+      "relation": "取决于",
+      "weight": 2
+    },
+    {
+      "source": "sentinel auth-pass",
+      "target": "主节点密码",
+      "relation": "定义",
+      "weight": 4
+    },
+    {
+      "source": "sentinel auth-pass",
+      "target": "mymaster",
+      "relation": "认证",
+      "weight": 3
+    },
+    {
+      "source": "sentinel auth-pass",
+      "target": "master123",
+      "relation": "使用密码",
+      "weight": 1
+    },
+    {
+      "source": "sentinel auth-pass",
+      "target": "requirepass",
+      "relation": "对应",
+      "weight": 1
+    },
+    {
+      "source": "主节点密码",
+      "target": "requirepass",
+      "relation": "必须一致",
+      "weight": 3
+    },
+    {
+      "source": "down-after-milliseconds",
+      "target": "Redis主从节点",
+      "relation": "判定",
+      "weight": 2
+    },
+    {
+      "source": "down-after-milliseconds",
+      "target": "节点",
+      "relation": "判定不可用超时",
+      "weight": 1
+    },
+    {
+      "source": "Redis主从节点",
+      "target": "生产环境",
+      "relation": "部署于",
+      "weight": 1
+    },
+    {
+      "source": "failover-timeout",
+      "target": "故障转移",
+      "relation": "定义超时时间",
+      "weight": 2
+    },
+    {
+      "source": "failover-timeout",
+      "target": "Redis主从节点",
+      "relation": "控制",
+      "weight": 1
+    },
+    {
+      "source": "parallel-syncs",
+      "target": "主节点",
+      "relation": "限制同步",
+      "weight": 1
+    },
+    {
+      "source": "parallel-syncs",
+      "target": "Redis主从节点",
+      "relation": "限制",
+      "weight": 1
+    },
+    {
+      "source": "parallel-syncs",
+      "target": "从节点",
+      "relation": "控制同步数",
+      "weight": 1
+    },
+    {
+      "source": "notification-script",
+      "target": "事件",
+      "relation": "触发",
+      "weight": 2
+    },
+    {
+      "source": "redis-server",
+      "target": "redis-master.conf",
+      "relation": "启动使用",
+      "weight": 3
+    },
+    {
+      "source": "redis-server",
+      "target": "redis-replica.conf",
+      "relation": "启动使用",
+      "weight": 3
+    },
+    {
+      "source": "redis-sentinel",
+      "target": "sentinel1.conf",
+      "relation": "启动使用",
+      "weight": 3
+    },
+    {
+      "source": "redis-sentinel",
+      "target": "sentinel2.conf",
+      "relation": "启动使用",
+      "weight": 3
+    },
+    {
+      "source": "redis-sentinel",
+      "target": "sentinel3.conf",
+      "relation": "启动使用",
+      "weight": 3
+    },
+    {
+      "source": "redis-sentinel",
+      "target": "端口",
+      "relation": "设置",
+      "weight": 1
+    },
+    {
+      "source": "sentinel2.conf",
+      "target": "端口",
+      "relation": "配置为",
+      "weight": 1
+    },
+    {
+      "source": "sentinel2.conf",
+      "target": "26380",
+      "relation": "配置端口",
+      "weight": 1
+    },
+    {
+      "source": "sentinel3.conf",
+      "target": "端口",
+      "relation": "配置为",
+      "weight": 1
+    },
+    {
+      "source": "sentinel3.conf",
+      "target": "26381",
+      "relation": "配置端口",
+      "weight": 1
+    },
+    {
+      "source": "redis-cli",
+      "target": "26379",
+      "relation": "连接端口",
+      "weight": 2
+    },
+    {
+      "source": "redis-cli",
+      "target": "info sentinel",
+      "relation": "执行命令",
+      "weight": 1
+    },
+    {
+      "source": "redis-cli",
+      "target": "主节点",
+      "relation": "关闭",
+      "weight": 2
+    },
+    {
+      "source": "redis-cli",
+      "target": "sentinel get-master-addr-by-name",
+      "relation": "执行",
+      "weight": 2
+    },
+    {
+      "source": "redis-cli",
+      "target": "INFO replication",
+      "relation": "执行",
+      "weight": 1
+    },
+    {
+      "source": "redis-cli",
+      "target": "哨兵状态",
+      "relation": "验证",
+      "weight": 1
+    },
+    {
+      "source": "redis-cli",
+      "target": "sentinel",
+      "relation": "验证",
+      "weight": 1
+    },
+    {
+      "source": "redis-cli",
+      "target": "shutdown",
+      "relation": "执行",
+      "weight": 1
+    },
+    {
+      "source": "redis-cli",
+      "target": "replication",
+      "relation": "查询",
+      "weight": 1
+    },
+    {
+      "source": "redis-cli",
+      "target": "127.0.0.1:6379",
+      "relation": "操作",
+      "weight": 1
+    },
+    {
+      "source": "redis-cli",
+      "target": "端口6379",
+      "relation": "关闭",
+      "weight": 1
+    },
+    {
+      "source": "info sentinel",
+      "target": "Sentinel",
+      "relation": "查询状态",
+      "weight": 1
+    },
+    {
+      "source": "master0",
+      "target": "mymaster",
+      "relation": "具有名称",
+      "weight": 1
+    },
+    {
+      "source": "master0",
+      "target": "Sentinel",
+      "relation": "被监控",
+      "weight": 1
+    },
+    {
+      "source": "mymaster",
+      "target": "master123",
+      "relation": "密码",
+      "weight": 2
+    },
+    {
+      "source": "mymaster",
+      "target": "主节点127.0.0.1:6379",
+      "relation": "对应",
+      "weight": 1
+    },
+    {
+      "source": "mymaster",
+      "target": "master",
+      "relation": "原始主节点",
+      "weight": 1
+    },
+    {
+      "source": "mymaster",
+      "target": "slave",
+      "relation": "从节点",
+      "weight": 1
+    },
+    {
+      "source": "mymaster",
+      "target": "哨兵",
+      "relation": "监控",
+      "weight": 1
+    },
+    {
+      "source": "mymaster",
+      "target": "127.0.0.1",
+      "relation": "位于",
+      "weight": 1
+    },
+    {
+      "source": "mymaster",
+      "target": "端口6379",
+      "relation": "监听",
+      "weight": 1
+    },
+    {
+      "source": "mymaster",
+      "target": "127.0.0.1:6379",
+      "relation": "地址",
+      "weight": 1
+    },
+    {
+      "source": "Redisson",
+      "target": "mymaster",
+      "relation": "连接",
+      "weight": 3
+    },
+    {
+      "source": "Redisson",
+      "target": "127.0.0.1:26379",
+      "relation": "连接",
+      "weight": 2
+    },
+    {
+      "source": "Redisson",
+      "target": "127.0.0.1:26380",
+      "relation": "连接",
+      "weight": 2
+    },
+    {
+      "source": "Redisson",
+      "target": "master123",
+      "relation": "使用",
+      "weight": 2
+    },
+    {
+      "source": "Redisson",
+      "target": "Sentinel",
+      "relation": "连接",
+      "weight": 1
+    },
+    {
+      "source": "Redisson",
+      "target": "Redis Sentinel",
+      "relation": "连接",
+      "weight": 1
+    },
+    {
+      "source": "投票",
+      "target": "Leader选举",
+      "relation": "实现",
+      "weight": 1
+    },
+    {
+      "source": "投票",
+      "target": "领导者选举",
+      "relation": "先决条件",
+      "weight": 1
+    },
+    {
+      "source": "slave",
+      "target": "mymaster",
+      "relation": "属于",
+      "weight": 2
+    },
+    {
+      "source": "slave",
+      "target": "127.0.0.1:6380",
+      "relation": "位于",
+      "weight": 1
+    },
+    {
+      "source": "master",
+      "target": "mymaster",
+      "relation": "是",
+      "weight": 3
+    },
+    {
+      "source": "failover-state-send-slaveof-noone",
+      "target": "slave",
+      "relation": "应用于",
+      "weight": 2
+    },
+    {
+      "source": "failover-state-wait-promotion",
+      "target": "slave",
+      "relation": "应用于",
+      "weight": 2
+    },
+    {
+      "source": "promoted-slave",
+      "target": "slave",
+      "relation": "应用于",
+      "weight": 2
+    },
+    {
+      "source": "failover-state-reconf-slaves",
+      "target": "master",
+      "relation": "应用于",
+      "weight": 2
+    },
+    {
+      "source": "sentinel get-master-addr-by-name",
+      "target": "mymaster",
+      "relation": "查询",
+      "weight": 2
+    },
+    {
+      "source": "Redis哨兵集群",
+      "target": "故障转移",
+      "relation": "支持",
+      "weight": 1
+    },
+    {
+      "source": "Redis哨兵集群",
+      "target": "哨兵",
+      "relation": "包含",
+      "weight": 1
+    },
+    {
+      "source": "Redis哨兵集群",
+      "target": "主节点",
+      "relation": "包含",
+      "weight": 1
+    },
+    {
+      "source": "Redis哨兵集群",
+      "target": "从节点",
+      "relation": "包含",
+      "weight": 1
+    },
+    {
+      "source": "数据分片",
+      "target": "16384个槽",
+      "relation": "基于",
+      "weight": 2
+    },
+    {
+      "source": "cluster-enabled",
+      "target": "配置文件",
+      "relation": "属于",
+      "weight": 1
+    },
+    {
+      "source": "cluster-config-file",
+      "target": "nodes.conf",
+      "relation": "指定",
+      "weight": 1
+    },
+    {
+      "source": "cluster-config-file",
+      "target": "配置文件",
+      "relation": "属于",
+      "weight": 1
+    },
+    {
+      "source": "redis.conf",
+      "target": "主从复制",
+      "relation": "配置",
+      "weight": 1
+    },
+    {
+      "source": "redis.conf",
+      "target": "哨兵模式",
+      "relation": "配置",
+      "weight": 1
+    },
+    {
+      "source": "master.conf",
+      "target": "主节点",
+      "relation": "属于",
+      "weight": 1
+    },
+    {
+      "source": "master.conf",
+      "target": "bind",
+      "relation": "包含",
+      "weight": 1
+    },
+    {
+      "source": "master.conf",
+      "target": "port",
+      "relation": "包含",
+      "weight": 1
+    },
+    {
+      "source": "master.conf",
+      "target": "daemonize",
+      "relation": "包含",
+      "weight": 1
+    },
+    {
+      "source": "appendonly",
+      "target": "持久化",
+      "relation": "启用",
+      "weight": 2
+    },
+    {
+      "source": "INFO replication",
+      "target": "主节点",
+      "relation": "查询",
+      "weight": 1
+    },
+    {
+      "source": "主从切换",
+      "target": "从节点",
+      "relation": "提升为",
+      "weight": 1
+    },
+    {
+      "source": "主从切换",
+      "target": "主节点",
+      "relation": "改变为",
+      "weight": 1
+    },
+    {
+      "source": "数据不一致",
+      "target": "从节点",
+      "relation": "发生在",
+      "weight": 1
+    },
+    {
+      "source": "M",
+      "target": "Replica-2",
+      "relation": "复制到",
+      "weight": 2
+    },
+    {
+      "source": "sentinel down-after-milliseconds",
+      "target": "mymaster",
+      "relation": "监控",
+      "weight": 1
+    },
+    {
+      "source": "sentinel failover-timeout",
+      "target": "故障转移",
+      "relation": "配置超时",
+      "weight": 1
+    },
+    {
+      "source": "sentinel parallel-syncs",
+      "target": "故障转移",
+      "relation": "配置同步数量",
+      "weight": 1
+    },
+    {
+      "source": "哨兵实例",
+      "target": "redis-sentinel",
+      "relation": "由启动",
+      "weight": 1
+    },
+    {
+      "source": "哨兵实例",
+      "target": "哨兵状态",
+      "relation": "具有",
+      "weight": 1
+    },
+    {
+      "source": "哨兵状态",
+      "target": "sentinel_masters",
+      "relation": "包含",
+      "weight": 1
+    },
+    {
+      "source": "哨兵状态",
+      "target": "sentinel_tilt",
+      "relation": "包含",
+      "weight": 1
+    },
+    {
+      "source": "哨兵状态",
+      "target": "sentinel_running_scripts",
+      "relation": "包含",
+      "weight": 1
+    },
+    {
+      "source": "127.0.0.1:6379",
+      "target": "master",
+      "relation": "是",
+      "weight": 1
+    },
+    {
+      "source": "127.0.0.1:26379",
+      "target": "Redis Sentinel",
+      "relation": "端口",
+      "weight": 1
+    },
+    {
+      "source": "哨兵1",
+      "target": "哨兵日志",
+      "relation": "生成",
+      "weight": 1
+    },
+    {
+      "source": "哨兵1",
+      "target": "主节点127.0.0.1:6379",
+      "relation": "监控",
+      "weight": 1
+    },
+    {
+      "source": "哨兵1",
+      "target": "quorum",
+      "relation": "依赖",
+      "weight": 1
+    },
+    {
+      "source": "哨兵日志",
+      "target": "sentinel1.log",
+      "relation": "记录在",
+      "weight": 1
+    },
+    {
+      "source": "主节点127.0.0.1:6379",
+      "target": "从节点127.0.0.1:6380",
+      "relation": "主从关联",
+      "weight": 1
+    },
+    {
+      "source": "领导者选举",
+      "target": "故障转移",
+      "relation": "触发",
+      "weight": 1
+    },
+    {
+      "source": "failover",
+      "target": "slave",
+      "relation": "涉及",
+      "weight": 1
+    },
+    {
+      "source": "failover",
+      "target": "master",
+      "relation": "涉及",
+      "weight": 1
+    },
+    {
+      "source": "NTP服务",
+      "target": "哨兵",
+      "relation": "同步时间",
+      "weight": 1
+    },
+    {
+      "source": "sentinel deny-scripts-reconfig",
+      "target": "脑裂问题",
+      "relation": "处理",
+      "weight": 1
+    },
+    {
+      "source": "replica-announce-ip",
+      "target": "从节点",
+      "relation": "配置于",
+      "weight": 1
+    },
+    {
+      "source": "replica-announce-port",
+      "target": "从节点",
+      "relation": "配置于",
+      "weight": 1
+    },
+    {
+      "source": "哨兵节点",
+      "target": "配置文件",
+      "relation": "生成",
+      "weight": 1
+    },
+    {
+      "source": "哨兵节点",
+      "target": "Redis哨兵集群",
+      "relation": "组成",
+      "weight": 1
+    },
+    {
+      "source": "从节点数量",
+      "target": "Redis主从复制",
+      "relation": "属于",
+      "weight": 1
+    },
+    {
+      "source": "选举",
+      "target": "故障转移",
+      "relation": "触发",
+      "weight": 1
+    },
+    {
+      "source": "Redis Sentinel",
+      "target": "故障转移",
+      "relation": "执行",
+      "weight": 2
+    },
+    {
+      "source": "Redis Sentinel",
+      "target": "mymaster",
+      "relation": "监控",
+      "weight": 1
+    },
+    {
+      "source": "Redis Sentinel",
+      "target": "127.0.0.1:6379",
+      "relation": "监控",
+      "weight": 1
+    },
+    {
+      "source": "127.0.0.1:6380",
+      "target": "slave",
+      "relation": "是",
+      "weight": 1
+    },
+    {
+      "source": "replica.conf",
+      "target": "bind",
+      "relation": "包含",
+      "weight": 1
+    },
+    {
+      "source": "replica.conf",
+      "target": "port",
+      "relation": "包含",
+      "weight": 1
+    },
+    {
+      "source": "replica.conf",
+      "target": "daemonize",
+      "relation": "包含",
+      "weight": 1
+    },
+    {
+      "source": "replica.conf",
+      "target": "replicaof",
+      "relation": "包含",
+      "weight": 1
+    },
+    {
+      "source": "replica.conf",
+      "target": "masterauth",
+      "relation": "包含",
+      "weight": 1
+    },
+    {
+      "source": "replica.conf",
+      "target": "replica-serve-stale-data",
+      "relation": "包含",
+      "weight": 1
+    },
+    {
+      "source": "replica.conf",
+      "target": "replica-read-only",
+      "relation": "包含",
+      "weight": 1
+    },
+    {
+      "source": "role",
+      "target": "主节点",
+      "relation": "标识",
+      "weight": 1
+    },
+    {
+      "source": "connected_slaves",
+      "target": "从节点",
+      "relation": "统计",
+      "weight": 1
+    },
+    {
+      "source": "slave0",
+      "target": "从节点",
+      "relation": "表示",
+      "weight": 1
+    },
+    {
+      "source": "vote-for-leader",
+      "target": "mymaster",
+      "relation": "针对",
+      "weight": 1
+    },
+    {
+      "source": "elected-leader",
+      "target": "mymaster",
+      "relation": "选举出",
+      "weight": 1
+    },
+    {
+      "source": "failover-state-select-slave",
+      "target": "mymaster",
+      "relation": "选择从节点",
+      "weight": 1
+    },
+    {
+      "source": "selected-slave",
+      "target": "端口6380",
+      "relation": "选择",
+      "weight": 1
+    },
+    {
+      "source": "selected-slave",
+      "target": "127.0.0.1",
+      "relation": "位于",
+      "weight": 1
+    },
+    {
+      "source": "运行时配置",
+      "target": "哨兵",
+      "relation": "属于",
+      "weight": 1
+    }
+  ]
+}
