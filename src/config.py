@@ -1,11 +1,27 @@
 """
 项目配置中心 —— 所有可调参数集中在这里
+
+路径策略：
+  环境变量 / .env 中可以用绝对路径，也可以用相对路径。
+  相对路径统一基于项目根目录（config.py 往上两级）解析为绝对路径，
+  这样无论从哪个目录运行都不会跑偏。
 """
 import os
 import logging
 from dotenv import load_dotenv
 
-load_dotenv()
+# 项目根目录 —— 根据 config.py 自身位置算出，不依赖工作目录
+_PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# load_dotenv 默认从工作目录找 .env，这里显式指定项目根目录下的 .env
+load_dotenv(os.path.join(_PROJECT_ROOT, ".env"))
+
+
+def _resolve_path(value: str) -> str:
+    """如果是相对路径，拼上项目根目录转成绝对路径；绝对路径原样返回"""
+    if not os.path.isabs(value):
+        return os.path.normpath(os.path.join(_PROJECT_ROOT, value))
+    return value
 
 
 class AppConfig:
@@ -15,13 +31,21 @@ class AppConfig:
     LLM_API_KEY: str = os.environ.get("DEEPSEEK_API_KEY", "")
     LLM_BASE_URL: str = os.environ.get("DEEPSEEK_BASE_URL", "https://api.deepseek.com/v1")
     LLM_MODEL: str = os.environ.get("DEEPSEEK_MODEL", "deepseek-chat")
+    LLM_TEMPERATURE: float = float(os.environ.get("LLM_TEMPERATURE", "0.7"))
+    LLM_MAX_TOKENS: int = int(os.environ.get("LLM_MAX_TOKENS", "2048"))
+    LLM_TIMEOUT: int = int(os.environ.get("LLM_TIMEOUT", "60"))
+    LLM_MAX_RETRIES: int = int(os.environ.get("LLM_MAX_RETRIES", "2"))
 
     # ── Embedding ──
     EMBEDDING_MODEL: str = os.environ.get("EMBEDDING_MODEL", "BAAI/bge-small-zh-v1.5")
-    EMBEDDING_CACHE_DIR: str = os.environ.get("EMBEDDING_CACHE_DIR", "./bge_model")
+    EMBEDDING_CACHE_DIR: str = _resolve_path(
+        os.environ.get("EMBEDDING_CACHE_DIR", "./bge_model")
+    )
 
     # ── ChromaDB ──
-    CHROMA_DB_DIR: str = os.environ.get("CHROMA_DB_DIR", "./chroma_db")
+    CHROMA_DB_DIR: str = _resolve_path(
+        os.environ.get("CHROMA_DB_DIR", "./chroma_db")
+    )
 
     # ── RAG 参数 ──
     CHUNK_SIZE: int = 500

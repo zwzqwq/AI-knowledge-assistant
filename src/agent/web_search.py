@@ -74,8 +74,6 @@ def search_bing(query: str, max_results: int = 3) -> list[dict]:
         })
 
     logger.info(f"Bing 搜索 \"{query}\" → {len(results)} 条结果")
-
-    logger.info(f"Bing 搜索 \"{query}\" → {len(results)} 条结果")
     return results
 
 
