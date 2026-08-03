@@ -186,12 +186,15 @@ with st.sidebar:
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"]):
         st.write(msg["content"])
-        if msg.get("source"):
-            source_label = {
+        if msg.get("sources"):
+            labels = {
                 "knowledge_base": "📚 来自知识库",
+                "knowledge_graph": "🧠 来自知识图谱",
+                "web_search": "🌐 来自联网搜索",
                 "llm": "💡 基于 AI 自身知识",
-            }.get(msg["source"], f"🔗 {msg['source']}")
-            st.caption(source_label)
+            }
+            source_labels = [labels.get(s, s) for s in msg["sources"]]
+            st.caption(" + ".join(source_labels))
 
 # 输入框
 prompt = st.chat_input("输入你的问题...")
@@ -211,7 +214,7 @@ if prompt:
                 answer_placeholder = st.empty()
 
                 full_answer = ""
-                source = "unknown"
+                sources: list[str] = []
 
                 # ── HTTP SSE 流式请求 ──
                 with httpx.stream(
@@ -227,14 +230,16 @@ if prompt:
                         if line.startswith("data: "):
                             data = json.loads(line[6:])
 
-                            if "source" in data:
-                                source = data["source"]
-                                source_label = {
+                            if "sources" in data:
+                                sources = data["sources"]
+                                labels = {
                                     "knowledge_base": "📚 知识库",
+                                    "knowledge_graph": "🧠 知识图谱",
                                     "web_search": "🌐 联网搜索",
                                     "llm": "💡 AI 自身知识",
-                                }.get(source, "")
-                                status_placeholder.caption(f"来源: {source_label}")
+                                }
+                                source_labels = [labels.get(s, s) for s in sources]
+                                status_placeholder.caption(f"来源: {' + '.join(source_labels)}")
 
                             elif "content" in data:
                                 full_answer += data["content"]
@@ -251,7 +256,7 @@ if prompt:
                 st.session_state.messages.append({
                     "role": "assistant",
                     "content": full_answer,
-                    "source": source,
+                    "sources": sources,
                 })
 
             except Exception as e:

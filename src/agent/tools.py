@@ -5,7 +5,7 @@ LangChain 的 @tool 装饰器会自动生成 JSON Schema，
 LLM 通过 Function Calling 协议看到这些 Schema，决定调用哪个。
 
 用法：
-  tools = [retrieve, web_search]
+  tools = [retrieve, web_search, graph_query]
   llm_with_tools = llm.bind_tools(tools)
   response = llm_with_tools.invoke(messages)
   # response.tool_calls 包含 LLM 决定调用的工具和参数
@@ -24,7 +24,7 @@ def retrieve(query: str) -> str:
     返回:
         检索到的相关文档片段（可能为空）
     """
-    # 实际实现由 graph.py 的 retrieve_node 完成
+    # 实际实现由 nodes.py 的 retrieve_node 完成
     # 这里只是声明签名给 LLM 看
     return ""
 
@@ -43,7 +43,6 @@ def web_search(query: str) -> str:
     return ""
 
 
-# Phase 3 会新增这个
 @tool
 def graph_query(entity: str) -> str:
     """
@@ -56,3 +55,7 @@ def graph_query(entity: str) -> str:
         与该实体直接关联的其他实体及其关系描述
     """
     return ""
+
+
+# 所有可用工具（模块级常量，供 router 和 graph 使用）
+TOOLS = [retrieve, web_search, graph_query]

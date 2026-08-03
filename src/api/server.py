@@ -109,7 +109,18 @@ async def upload_document(request: DocumentUploadRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.delete("/session/{session_id}")
+@app.delete("/documents/{filename}")
+async def delete_document(filename: str):
+    """删除指定文档的向量库切片
+
+    注意：知识图谱的实体关系无法按文档精确回滚，删除只清向量库切片。
+    同名文档可以重新上传（会触发全新的知识图谱抽取）。
+    """
+    try:
+        result = chat_service.delete_document(filename)
+        return {"status": "ok", **result}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 async def delete_session(session_id: str):
     """彻底删除指定 session_id 的会话"""
     try:
@@ -123,6 +134,12 @@ async def delete_session(session_id: str):
 async def list_sessions():
     """列出所有会话 ID"""
     return {"sessions": chat_service.list_sessions()}
+
+
+@app.get("/stats")
+async def get_stats():
+    """返回系统统计信息（向量库切片数/文档数 + 知识图谱实体数/关系数）"""
+    return chat_service.get_stats()
 
 
 @app.post("/sessions")

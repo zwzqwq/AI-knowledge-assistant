@@ -48,13 +48,17 @@ class AppConfig:
     )
 
     # ── RAG 参数 ──
-    CHUNK_SIZE: int = 500
-    CHUNK_OVERLAP: int = 50
-    RETRIEVER_K: int = 3
-    RETRIEVER_SEARCH_TYPE: str = "similarity"  # "similarity" | "mmr"
+    CHUNK_SIZE: int = 500  # 每个文档切片的最大字符数（太大降低检索精度，太小丢失上下文）
+    CHUNK_OVERLAP: int = 50  # 相邻切片的重叠字符数（保证句子完整，避免语义断裂）
+    RETRIEVER_K: int = 3  # 检索返回的文档片段数量（越多越全，但也可能引入噪声）
+    RETRIEVER_SEARCH_TYPE: str = "similarity"  # 检索策略：similarity（纯相似度）| mmr（最大边际相关性，平衡多样性）
 
     # ── 对话 ──
     HISTORY_MAX_TURNS: int = 6  # 保留最近 N 轮对话
+    ROUTER_MAX_RECENT_MESSAGES: int = 8  # Router 传给 LLM 时，最多保留最近 N 条消息
+    ROUTER_COMPRESS_OLD_MESSAGES: bool = True  # 旧消息压缩为摘要（true）还是直接丢弃（false）
+    ROUTER_TOOL_RESULT_MAX_CHARS: int = 200  # Router 传给 LLM 时，ToolMessage 内容最大字符数（截断尾部）
+    ROUTER_SUMMARY_MAX_CHARS: int = 800  # 对话摘要（conversation_summary）最大字符数，防止无限膨胀
 
     # ── 日志 ──
     LOG_LEVEL: str = os.environ.get("LOG_LEVEL", "INFO")

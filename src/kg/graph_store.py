@@ -145,6 +145,13 @@ class GraphStore:
             "total_connections": total,
         }
 
+    def get_stats(self) -> dict:
+        """返回 JSON 可序列化的统计信息"""
+        return {
+            "total_entities": self._graph.number_of_nodes(),
+            "total_relations": self._graph.number_of_edges(),
+        }
+
     def query_to_text(self, entity: str) -> str:
         """查询结果转为 LLM 可用的文本"""
         result = self.query(entity)
@@ -165,18 +172,6 @@ class GraphStore:
                 lines.append(f"    - {source} {relation} {result['entity']}")
 
         return "\n".join(lines)
-
-    def stats(self) -> dict:
-        """图谱统计"""
-        return {
-            "nodes": self._graph.number_of_nodes(),
-            "edges": self._graph.number_of_edges(),
-            "top_entities": sorted(
-                self._graph.nodes(data=True),
-                key=lambda x: x[1].get("count", 0),
-                reverse=True
-            )[:10],
-        }
 
     # ── 持久化 ─────────────────────────────────────────────────
 

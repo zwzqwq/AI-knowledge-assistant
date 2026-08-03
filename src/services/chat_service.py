@@ -38,7 +38,7 @@ from src.agent.graph import build_agent_graph
 from src.kg.graph_store import GraphStore
 from src.kg.extractor import KnowledgeExtractor
 from src.memory.history import ConversationHistory
-from langchain_core.messages import HumanMessage
+from langchain_core.messages import HumanMessage, AIMessage, ToolMessage
 
 
 
@@ -79,6 +79,23 @@ class ChatService:
 
         return len(chunks)
 
+    def delete_document(self, filename: str) -> dict:
+        """删除指定文档的向量库切片
+
+        返回: {"filename", "deleted_chunks", "graph_affected"}
+          graph_affected 恒为 False — 知识图谱的实体关系无法按文档精确回滚
+          （NetworkX 图不记录三元组来自哪个文件），删除只清向量库切片。
+          同名文档允许重新上传，会触发全新的知识图谱抽取。
+        """
+        deleted_chunks = self._retriever_mgr.delete_by_source(filename)
+        # 允许同名文档重新上传时重新构建知识图谱
+        self._kg_doc_names.discard(filename)
+        return {
+            "filename": filename,
+            "deleted_chunks": deleted_chunks,
+            "graph_affected": False,
+        }
+
     def _build_knowledge_graph(self, chunks: list, filename: str = ""):
         """仅首次入库该文件时抽取实体关系并更新图谱"""
 
@@ -110,6 +127,14 @@ class ChatService:
     def is_db_ready(self) -> bool:
         """检查向量库是否已初始化"""
         return bool(self._retriever_mgr.exists)
+
+    def get_stats(self) -> dict:
+        """返回向量库和知识图谱的统计信息"""
+        store = GraphStore()
+        return {
+            "vector_store": self._retriever_mgr.get_stats(),
+            "knowledge_graph": store.get_stats(),
+        }
 
     # ── 对话 ─────────────────────────────────────────────────
 
@@ -178,33 +203,28 @@ class ChatService:
 
             initial_state = {
                 "messages": [HumanMessage(content=context_message)],
-                "tool_calls": [],
-                "context": "",
-                "final_answer": "",
                 "iteration": 0,
+                "final_answer": "",
+                "conversation_summary": "",
             }
 
-            # ── astream：逐个节点等待，收集工具结果和最终答案 ──
-            # astream 每次 yield {节点名: {字段更新}}，不是完整 state
-            # 例: {"generate": {"final_answer": "...", "messages": [...]}}
+            # ── astream：逐个节点等待，收集 messages 和最终答案 ──
             final_answer = ""
-            all_tool_calls = []
+            all_node_messages: list = []
 
             async for chunk in agent.astream(initial_state):
                 print(chunk)
                 for node_name, node_output in chunk.items():
-                    if node_name in ("retrieve", "web_search", "graph_query"):
-                        # 工具节点：收集 tool_calls（含 result）
-                        tool_calls = node_output.get("tool_calls", [])
-                        if tool_calls:
-                            all_tool_calls = tool_calls
+                    if node_output is None:
+                        continue
+                    # 收集每个节点产出的新消息
+                    msgs = node_output.get("messages", [])
+                    all_node_messages.extend(msgs)
 
-                    elif node_name == "generate":
-                        # generate 节点：提取最终回答
+                    if node_name == "generate":
                         final_answer = node_output.get("final_answer", "")
 
                     elif node_name == "router":
-                        # router 节点：可能直接生成回答（无工具调用场景）
                         router_answer = node_output.get("final_answer", "")
                         if router_answer:
                             final_answer = router_answer
@@ -213,32 +233,31 @@ class ChatService:
                 yield self._sse_event("error", {"error": "Agent 未返回结果"})
                 return
 
-            # ── 判断回答来源 ──
-            source = "llm"
-            has_retrieve = any(
-                tc["name"] == "retrieve" and len(tc.get("result", "")) > 100
-                and "（知识库中未找到" not in tc.get("result", "")
-                for tc in all_tool_calls if tc["result"]
-            )
-            has_search = any(
-                tc["name"] == "web_search" and len(tc.get("result", "")) > 100
-                and "（联网搜索未找到" not in tc.get("result", "")
-                for tc in all_tool_calls if tc["result"]
-            )
-            has_graph = any(
-                tc["name"] == "graph_query" and len(tc.get("result", "")) > 100
-                and "（知识图谱中未找到" not in tc.get("result", "")
-                for tc in all_tool_calls if tc["result"]
-            )
+            # ── 判断回答来源：扫描所有 ToolMessage ──
+            sources: list[str] = []
+            retrieve_msgs = [m for m in all_node_messages
+                             if isinstance(m, ToolMessage) and len(m.content) > 100
+                             and "（知识库中未找到" not in m.content
+                             and m.name == "retrieve"]
+            search_msgs = [m for m in all_node_messages
+                           if isinstance(m, ToolMessage) and len(m.content) > 100
+                           and "（联网搜索未找到" not in m.content
+                           and m.name == "web_search"]
+            graph_msgs = [m for m in all_node_messages
+                          if isinstance(m, ToolMessage) and len(m.content) > 100
+                          and "（知识图谱中未找到" not in m.content
+                          and m.name == "graph_query"]
 
-            if has_retrieve:
-                source = "knowledge_base"
-            elif has_graph:
-                source = "knowledge_base"
-            elif has_search:
-                source = "web_search"
+            if retrieve_msgs:
+                sources.append("knowledge_base")
+            if graph_msgs:
+                sources.append("knowledge_graph")
+            if search_msgs:
+                sources.append("web_search")
+            if not sources:
+                sources.append("llm")
 
-            yield self._sse_event("source", {"source": source})
+            yield self._sse_event("source", {"sources": sources})
 
             # ── 逐字输出 ──
             for char in final_answer:
