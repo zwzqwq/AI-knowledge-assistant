@@ -1,0 +1,12 @@
+services:
+  knowledge-assistant:
+    build: .
+    ports:
+      - 8000:8000
+    volumes:
+      - ./bge_model:/app/bge_model
+      - ./chroma_db:/app/chroma_db
+      - ./.env:/app/.env
+    environment:
+      - EMBEDDING_CACHE_DIR=/app/bge_model
+      - CHROMA_DB_DIR=/app/chroma_db
