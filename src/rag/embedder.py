@@ -63,6 +63,17 @@ class EmbeddingManager:
                     model_path = snapshot_download(
                         config.EMBEDDING_MODEL,
                         cache_dir=config.EMBEDDING_CACHE_DIR,
+                        # 只下载 PyTorch safetensors + 配置 + 分词器 + modules.json。
+                        # 默认连 pytorch_model.bin 一起拉（同模型双格式，多下 ~92M）。
+                        allow_patterns=[
+                            "*.json",
+                            "*.safetensors",
+                            "tokenizer*",
+                            "vocab.txt",
+                            "modules.json",
+                            "sentence_bert_config.json",
+                            "README.md",
+                        ],
                     )
                 self._embeddings = HuggingFaceEmbeddings(model_name=model_path)
                 logger.info("Embedding 模型加载完成")
