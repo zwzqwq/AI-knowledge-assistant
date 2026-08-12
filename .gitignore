@@ -1,8 +1,12 @@
 # ChromaDB 向量数据库
 chroma_db/
 bge_model/
+rerank_model/
 __pycache__/
 *.pyc
+
+# 运行时日志（按天轮转）
+logs/
 
 # 用户上传的知识库文件
 data/*.txt

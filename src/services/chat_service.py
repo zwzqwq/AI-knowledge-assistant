@@ -177,7 +177,7 @@ class ChatService:
         history.add_user(message)
 
         try:
-            retriever = self._retriever_mgr.get_retriever()
+            retriever = self._retriever_mgr.get_hybrid_retriever()
             agent = build_agent_graph(retriever)
 
             # ── 注入对话上下文（仅追问场景） ──
@@ -213,7 +213,6 @@ class ChatService:
             all_node_messages: list = []
 
             async for chunk in agent.astream(initial_state):
-                print(chunk)
                 for node_name, node_output in chunk.items():
                     if node_output is None:
                         continue
