@@ -57,7 +57,7 @@ class GraphStore:
 
     @staticmethod
     def _init_graph():
-        """延迟导入 NetworkX，防止意外的模块顺序错误"""
+        """延迟导入 NetworkX，仅在实际需要创建图时加载。"""
         import networkx as nx
         return nx.DiGraph()
 

@@ -21,6 +21,7 @@ SSE 事件格式：
     done     → 生成完成，前端可以关闭连接
 """
 import json
+import hashlib
 from typing import AsyncGenerator
 
 from openai import (
@@ -58,24 +59,28 @@ class ChatService:
         self._retriever_mgr = Retriever()
         self._sessions: dict[str, ConversationHistory] = {}
         self._kg_built = False  # 标记是否已构建过知识图谱
-        self._kg_doc_names: set = set()  # 已抽取过 KG 的文档名集合
+        self._kg_fingerprints: set = set()  # 已抽取过 KG 的文档内容指纹（MD5），防重复抽取
 
     # ── 文档管理 ──────────────────────────────────────────────
 
     def add_document(self, content: str, filename: str) -> int:
         """
-        将文本内容切片、入库、构建知识图谱（仅新文件时抽取实体）
+        将文本内容切片、入库、构建知识图谱（内容首次出现时抽取实体）
 
         返回：入库的切片数量
         """
         chunks = self._loader.load_text(content, source_name=filename)
         self._retriever_mgr.add(chunks)
 
-        # Phase 3: 知识图谱只在首次入库该文件时构建
-        # 防止同一文件被重复上传 / 重复抽取的问题
-        # 正常情况下，用户上传新文件 → 一次性的实体抽取
-        if filename not in self._kg_doc_names:
+        # Phase 3: 知识图谱按"内容指纹"防重构建（MD5 of content）
+        # 比"文件名防重"更强：两个内容相同但不同名的文档（如改名重传）
+        # 文件名不同会都触发抽取 → 重复三元组叠加权重被放大。
+        # 指纹相同 ⇔ 内容完全相同，只建一次图。
+        # 注意：部分重复（内容有更新）指纹不同 → 正常重新抽取（是新信息）。
+        fingerprint = hashlib.md5(content.encode("utf-8")).hexdigest()
+        if fingerprint not in self._kg_fingerprints:
             self._build_knowledge_graph(chunks, filename)
+            self._kg_fingerprints.add(fingerprint)
 
         return len(chunks)
 
@@ -85,11 +90,9 @@ class ChatService:
         返回: {"filename", "deleted_chunks", "graph_affected"}
           graph_affected 恒为 False — 知识图谱的实体关系无法按文档精确回滚
           （NetworkX 图不记录三元组来自哪个文件），删除只清向量库切片。
-          同名文档允许重新上传，会触发全新的知识图谱抽取。
+          指纹集合同样不回滚：图谱残留该文档的三元组，重传相同内容不应重复抽取。
         """
         deleted_chunks = self._retriever_mgr.delete_by_source(filename)
-        # 允许同名文档重新上传时重新构建知识图谱
-        self._kg_doc_names.discard(filename)
         return {
             "filename": filename,
             "deleted_chunks": deleted_chunks,
@@ -97,7 +100,7 @@ class ChatService:
         }
 
     def _build_knowledge_graph(self, chunks: list, filename: str = ""):
-        """仅首次入库该文件时抽取实体关系并更新图谱"""
+        """抽取实体关系并更新图谱（防重由调用方 add_document 按内容指纹控制）"""
 
         try:
             store = GraphStore()
@@ -117,7 +120,6 @@ class ChatService:
 
             if new_triples:
                 self._kg_built = True
-                self._kg_doc_names.add(filename)
                 logger.info(f"知识图谱已更新: +{new_triples} 三元组 (文件: {filename})")
             else:
                 logger.info(f"KG: {filename} 未抽取到新的实体关系")

@@ -88,6 +88,7 @@ class KnowledgeExtractor:
         all_triples = []
         for i, chunk in enumerate(chunks):
             text = chunk.page_content if hasattr(chunk, 'page_content') else str(chunk)
+            # config文件中有规定切片的最大字符数为500，这么大的文本片段，小于20的只有可能是边角料，有需要提取的三元关系的概率很小
             if len(text) < 20:
                 continue
             triples = self.extract(text)
@@ -106,13 +107,15 @@ class KnowledgeExtractor:
         content = re.sub(r'\s*```$', '', content)
 
         try:
+             # 第1次尝试：直接解析
             data = json.loads(content)
         except json.JSONDecodeError:
             # 尝试提取第一个 JSON 对象
+            # 直接解析失败 → 第2次尝试：用正则"抠"出 { ... } 部分
             match = re.search(r'\{[\s\S]*\}', content)
             if match:
                 try:
-                    data = json.loads(match.group())
+                    data = json.loads(match.group())# 把抠出来的{ ... } 部分部分再试一次解析
                 except json.JSONDecodeError:
                     logger.warning(f"KG 提取: 无法解析 LLM 返回的 JSON，内容前 200 字符: {content[:200]}")
                     return []
