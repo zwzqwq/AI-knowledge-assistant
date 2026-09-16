@@ -53,7 +53,9 @@ class AppConfig:
     CHUNK_OVERLAP: int = 50  # 相邻切片的重叠字符数（保证句子完整，避免语义断裂）
     RETRIEVER_K: int = 3  # 检索返回的文档片段数量（越多越全，但也可能引入噪声）
     RETRIEVER_SEARCH_TYPE: str = "similarity"  # 检索策略：similarity（纯相似度）| mmr（最大边际相关性，平衡多样性）
-    RETRIEVER_CANDIDATES: int = 10  # 混合检索召回阶段每路的候选数 N（须 > 精排 k，给 Rerank 足够的挑选空间）
+    RETRIEVER_CANDIDATES: int = 5  # 混合检索召回阶段每路的候选数 N（须 > 精排 k，给 Rerank 足够的挑选空间）
+    # 为什么是 5 而不是 10：Rerank 在 CPU 上推理，候选数线性影响耗时（10→25s，5→~12s）。
+    # N=5 时两路去重后仍有 ~10 候选，足够 Rerank 挑出 top-3，召回质量损失很小。
     RETRIEVER_RERANK_TOP_K: int = 3  # 精排后最终保留的文档数（喂给 LLM 的精准 top-k）
 
     # ── Rerank ──
@@ -70,6 +72,13 @@ class AppConfig:
     ROUTER_COMPRESS_OLD_MESSAGES: bool = True  # 旧消息压缩为摘要（true）还是直接丢弃（false）
     ROUTER_TOOL_RESULT_MAX_CHARS: int = 200  # Router 传给 LLM 时，ToolMessage 内容最大字符数（截断尾部）
     ROUTER_SUMMARY_MAX_CHARS: int = 800  # 对话摘要（conversation_summary）最大字符数，防止无限膨胀
+
+    # ── 会话持久化（方向 A：以 state["messages"] 为唯一数据源） ──
+    # 每个会话存一个 JSON：{"messages": [...], "summary": "..."}
+    # messages 已被 summarize 节点裁剪到有界规模（最近 N 纯对话 + 当前轮），重启不丢、可跨轮累加
+    SESSIONS_DIR: str = _resolve_path(
+        os.environ.get("SESSIONS_DIR", "./data/sessions")
+    )
 
     # ── 日志 ──
     LOG_LEVEL: str = os.environ.get("LOG_LEVEL", "INFO")

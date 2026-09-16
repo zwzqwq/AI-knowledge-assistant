@@ -57,7 +57,7 @@
 
 **问题**：Phase 1 的检索→回答流程是硬编码的——无论什么问题都先检索向量库，检索不到才降级到 LLM 自身知识。无法处理"先查向量库再查图谱再搜网页"这种多工具组合场景。
 
-**方案**：用 LangGraph StateGraph 构建 Agent 决策循环。router 节点（独立 LLM，temperature=0）根据检索结果动态决定下一步：继续调工具 or 生成回答。三工具（retrieve / graph_query / web_search）+ 最多 5 轮循环。关键设计决策：Router 和 Generate 使用独立 LLM 实例，Router 用 temperature=0 保证决策确定性，Generate 用 temperature=0.7 保证回答多样性。
+**方案**：用 LangGraph StateGraph 构建 Agent 决策循环。router 节点（独立 LLM，temperature=0）根据检索结果动态决定下一步：继续调工具 or 生成回答。三工具（retrieve / graph_query / web_search）+ 最多 7 轮循环。关键设计决策：Router 和 Generate 使用独立 LLM 实例，Router 用 temperature=0 保证决策确定性，Generate 用 temperature=0.7 保证回答多样性。
 
 **踩坑**：tool_calls 被 LangGraph 的"最后写入者胜"机制覆盖，导致已执行的工具结果丢失 → 在 router_node 中实现了合并逻辑；Router 有"反问用户"的 LLM 本能 → prompt 重写，角色从"助手"明确定位为"路由器"，搭配 temperature=0 根治。
 
@@ -68,6 +68,26 @@
 **方案**：引入 GraphRAG。上传文档时 LLM 自动抽取（实体, 关系, 实体）三元组 → NetworkX DiGraph 存储 → `graph_query` 工具支持双向关系查询。查询时支持模糊匹配（如输"Inno"能匹配到"InnoDB"），返回入边和出边。
 
 **权衡**：三元组抽取是昂贵操作（每次调 LLM），通过 filename 去重集合避免重复抽取。
+
+### Phase 4：会话管理收敛为单一数据源（架构重构）
+
+**问题**：项目里同时存在**三套对话管理机制**，互相打架、大量死代码：
+
+1. `ConversationHistory`（外部内存存储）——"真正在干活"的那套，但重启即丢
+2. `AgentState.messages`（LangGraph 内部）——设计正确，但每次请求都被重置成单条消息，**历史从未注入**
+3. `context_message` 文本拼接 hack——手工从外部存储抠上一轮问答，拼成一条假消息冒充多轮上下文
+
+结果是：`nodes.py` 里精心设计的摘要压缩（`_summarize_old_messages`）和窗口截断（`_build_router_messages`）**从来没被喂过真实历史，一直是死代码**。
+
+**方案**：废弃 1 和 3，让 `state["messages"]` 成为跨轮、持久化的唯一数据源：
+
+- 会话状态落盘 `data/sessions/{sid}.json`（`messages_to_dict` 序列化），重启不丢
+- 历史 + 新问题一起拼进 `initial_state`，摘要压缩和窗口截断**自动生效**
+- 每轮结束把**裁剪后的**规范消息写回磁盘，而不是全量堆积
+- **关键修复**：流式模式从 `updates` 改为 `values`——`updates` 拿到的是"本节点动作"（含 `RemoveMessage` 删除指令），直接存盘会得到"删除指令 + 本该被删的旧消息"的脏数据；`values` 拿到的是 reducer 处理后的完整快照，才是可持久化的干净结果
+- 顺带修复：`delete_session` 路由缺装饰器导致的 404
+
+**这条是面试高分点**：它不是"加功能"，是**发现"两套机制共存、其中一套是死代码"并做减法**。
 
 ## 快速开始
 
@@ -173,13 +193,10 @@ knowledge_assistant/
 ├── run_api.py                # FastAPI 启动入口
 ├── app.py                    # Streamlit 启动入口
 ├── data/
-│   └── knowledge_graph.json  # 知识图谱持久化文件
+│   ├── knowledge_graph.json  # 知识图谱持久化文件
+│   └── sessions/             # 会话状态持久化（每会话一个 JSON，自动生成）
 ├── chroma_db/                # ChromaDB 向量库（自动生成）
 ├── bge_model/                # Embedding 模型缓存（自动下载）
-├── docs/
-│   ├── 开发实战问题记录.md     # 20+ 条实战问题 + 面试话术
-│   ├── 面试准备.md            # 项目介绍 + 高频追问
-│   └── phase3_completion.md  # Phase 3 完成纪要
 └── src/
     ├── config.py             # 配置中心（所有可调参数）
     ├── agent/
@@ -191,17 +208,18 @@ knowledge_assistant/
     │   ├── server.py         # FastAPI 端点定义
     │   └── schemas.py        # Pydantic 请求/响应模型
     ├── services/
-    │   └── chat_service.py   # ★ 业务服务层（文档/会话/SSE 流式对话）
+    │   └── chat_service.py   # ★ 业务服务层（文档/会话持久化/SSE 流式对话）
     ├── rag/
     │   ├── loader.py         # 文档加载 & RecursiveCharacterTextSplitter 切片
     │   ├── embedder.py       # HuggingFaceEmbeddings 管理（单例 + 本地缓存优先）
     │   ├── retriever.py      # ChromaDB 向量存储 + similarity/mmr 检索策略
+    │   ├── bm25_retriever.py # BM25 关键词检索（jieba 分词 + rank_bm25）
+    │   ├── reranker.py       # CrossEncoder 精排（bge-reranker-base）
+    │   ├── ensemble.py       # HybridRetriever：向量+BM25 合并去重 → 精排
     │   └── chain.py          # LCEL 管道（检索→格式化→Prompt→LLM）
     ├── kg/
     │   ├── extractor.py      # LLM 实体关系三元组抽取
     │   └── graph_store.py    # NetworkX DiGraph 存储 + 双向查询 + JSON 持久化
-    ├── memory/
-    │   └── history.py        # 多轮对话管理（自动截断到最近 N 轮）
     └── ui/
         └── app.py            # Streamlit HTTP 客户端（纯渲染层）
 ```

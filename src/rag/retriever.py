@@ -35,11 +35,28 @@ class Retriever:
     def __init__(self):
         self.embeddings = EmbeddingManager().get()
         self._vectorstore: Chroma | None = None
+        # BM25Retriever 实例缓存（整个 Retriever 对象生命周期内复用一份）
+        # ChatService 中 self._retriever_mgr 是唯一对象，因此这份缓存等价于进程级单例。
+        # 文档增删时通过 mark_dirty() 标记过期，下次查询自动重建；
+        # 向量库 create() 重建时直接置 None，用新的 vs 对象重新构造。
+        self._bm25_retriever_cache: BM25Retriever | None = None
 
     @property
     def exists(self) -> bool:
-        """检查本地向量库是否存在"""
-        return os.path.exists(config.CHROMA_DB_DIR) and os.listdir(config.CHROMA_DB_DIR)
+        """检查本地向量库是否存在（严格返回 bool）
+
+        原写法：`os.path.exists(...) and os.listdir(...)`
+        隐患：Python 的 `A and B` 表达式返回的是**最后一个真值对象**本身，
+        而不是布尔值。当目录非空时返回的实际是 list[str]（文件名列表），
+        虽然在 if 判断里仍等价 True，但类型不匹配注释会引入两个边缘问题：
+          ① 某些严格的序列化场景（如 Pydantic strict=True）会把 list 识别成非 bool
+          ② 调试 / 诊断时会迷惑：exists 应该是 bool，实际是 list
+        显式套 `bool()` 消除歧义 —— 空目录 / 不存在 → False，非空 → True。
+        """
+        return bool(
+            os.path.exists(config.CHROMA_DB_DIR)
+            and os.listdir(config.CHROMA_DB_DIR)
+        )
 
     def _get_or_load(self) -> Chroma:
         """懒加载：已有则加载，否则返回 None"""
@@ -83,14 +100,24 @@ class Retriever:
             embedding=self.embeddings,
             persist_directory=config.CHROMA_DB_DIR,
         )
+        # Chroma 完全换了一个新对象，旧 BM25 缓存里绑的是老 collection，必须丢弃
+        # 下次 get_hybrid_retriever 会用新的 self._vectorstore 重新构造 BM25Retriever
+        self._bm25_retriever_cache = None
         return self._vectorstore
 
-    def add(self, chunks: list):
-        """向已有向量库追加文档（自动去重，防重复导入污染）"""
+    def add(self, chunks: list) -> int:
+        """向已有向量库追加文档（自动去重，防重复导入污染）
+
+        返回：实际新增入库的切片数 —— 供上层如实反馈给用户（重复上传返回 0）。
+        """
         vs = self._get_or_load()
         if vs is None:
+            # 首次建库路径：先批内去重算出"真实会写入"的数量再交给 create()，
+            # （create 内部会再幂等去重一次，重复过滤无害）
+            unique, _ = self._unique_chunks(chunks)
             logger.info("向量库不存在，自动创建")
-            return self.create(chunks)
+            self.create(unique)
+            return len(unique)
 
         # 入库去重：跳过库中内容已存在的切片（防止上次的 96% 重复事故重演）
         existing = set(vs._collection.get()["documents"])
@@ -99,12 +126,17 @@ class Retriever:
             logger.info(f"入库去重：跳过 {skipped} 个内容已存在的切片")
         if not new_chunks:
             logger.info("全部切片已存在，无需追加")
-            return vs
+            return 0
 
         logger.info(f"追加前向量库数量: {vs._collection.count()}")
         vs.add_documents(new_chunks)
         logger.info(f"追加 {len(new_chunks)} 个切片到向量库，追加后数量: {vs._collection.count()}")
-        return vs
+
+        # Chroma 数据变化了，BM25 索引需要重建。但 vs 对象本身没变，所以缓存的
+        # BM25Retriever 实例可以复用，只需调用 mark_dirty()，下次查询时懒重建索引
+        if self._bm25_retriever_cache is not None:
+            self._bm25_retriever_cache.mark_dirty()
+        return len(new_chunks)
 
     def delete_by_source(self, source_name: str) -> int:
         """按文档名删除向量库中该文档的所有切片，返回删除数量
@@ -123,6 +155,10 @@ class Retriever:
         after = collection.count()
         deleted = before - after
         logger.info(f"删除文档 '{source_name}': 移除 {deleted} 个切片（剩余 {after}）")
+
+        # 删除导致 Chroma 文档集变化，BM25 索引同样要标记过期，下次查询懒重建
+        if deleted > 0 and self._bm25_retriever_cache is not None:
+            self._bm25_retriever_cache.mark_dirty()
         return deleted
 
     def get_stats(self) -> dict:
@@ -175,8 +211,8 @@ class Retriever:
 
         组装三件套：
           ① 向量检索器（语义路）→ 召回 N 条
-          ② BM25Retriever（认死理路）→ 召回 N 条
-          ③ Reranker（精排）→ 对合并去重后的候选池打分，截断 top-k
+          ② BM25Retriever（认死理路）→ 召回 N 条（实例级缓存，文档变化时 mark_dirty 懒重建）
+          ③ Reranker（精排）→ 对合并去重后的候选池打分，截断 top-k（全局单例，模型只加载一次）
 
         召回阶段要"广"：N = config.RETRIEVER_CANDIDATES（默认 10），
         精排阶段要"准"：k = config.RETRIEVER_RERANK_TOP_K（默认 3），
@@ -192,13 +228,20 @@ class Retriever:
             search_kwargs={"k": config.RETRIEVER_CANDIDATES},
         )
 
-        # ② BM25 路：复用同一个向量库拉全量文档建词级索引（懒加载，首次查询才建）
-        bm25_retriever = BM25Retriever(
-            vectorstore=vs,
-            top_n=config.RETRIEVER_CANDIDATES,
-        )
+        # ② BM25 路：复用缓存实例，避免每次问答都从 Chroma 拉全量 + jieba 分词 + 建索引
+        #    首次调用：None → 新建 → 写入缓存 → 建索引（仅这一次打印"建立索引"日志）
+        #    后续调用：命中缓存 → 直接复用 → 0 开销（文档没变的情况下）
+        #    文档增删后：add / delete_by_source 会调用 mark_dirty()，下次 invoke 自动重建
+        if self._bm25_retriever_cache is None:
+            logger.info("BM25Retriever: 创建新实例并缓存（整个进程复用）")
+            self._bm25_retriever_cache = BM25Retriever(
+                vectorstore=vs,
+                top_n=config.RETRIEVER_CANDIDATES,
+            )
+        bm25_retriever = self._bm25_retriever_cache
 
         # ③ 精排器：top_k 默认取 config.RETRIEVER_RERANK_TOP_K
+        #    （Reranker 已加全局单例，模型整个进程只加载一次）
         reranker = Reranker()
 
         # ④ 组装：合并去重 + 精排都在 HybridRetriever 内部完成

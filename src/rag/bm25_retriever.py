@@ -64,15 +64,28 @@ class BM25Retriever:
         self._bm25 = BM25Okapi(tokenized_docs)
         logger.info(f"BM25Retriever: 索引建立完成，共 {len(self._documents)} 篇文档")
 
+    def mark_dirty(self):
+        """标记索引过期（文档增删后调用），下次检索时自动懒重建
+
+        和 _rebuild() 的区别：
+          - _rebuild() 立刻拉全量文档重建，同步阻塞，适合马上要查的场景
+          - mark_dirty() 只把 _bm25 置 None，下次 invoke() 时才真正重建，
+            懒执行，适合"用户刚上传文档、不一定马上提问"的场景
+        文档增删后调用 mark_dirty() 比直接 _rebuild() 更省 CPU：
+        如果用户连续传 10 个文件，_rebuild 会重建 10 次 500 篇索引，
+        mark_dirty 只会在第一次查询时重建 1 次。
+        """
+        self._bm25 = None
+
     def _rebuild(self):
-        """强制重建索引（文档增删后调用）"""
+        """强制立即重建索引（不推荐外部直接用，改用 mark_dirty() 懒重建）"""
         self._bm25 = None
         self._build_index()
 
     def add_documents(self, chunks: list):
-        """新增文档后重建索引（简化处理：全量重建，文档量小够用）"""
+        """新增文档后标记索引过期（懒重建，避免批量导入时反复重建）"""
         if chunks:
-            self._rebuild()
+            self.mark_dirty()
 
     def invoke(self, query: str) -> list[Document]:
         """按 query 检索，返回 top-N 条 Document"""

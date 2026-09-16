@@ -121,6 +121,9 @@ async def delete_document(filename: str):
         return {"status": "ok", **result}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.delete("/session/{session_id}")
 async def delete_session(session_id: str):
     """彻底删除指定 session_id 的会话"""
     try:

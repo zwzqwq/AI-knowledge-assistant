@@ -154,6 +154,18 @@ class GraphStore:
 
     def query_to_text(self, entity: str) -> str:
         """查询结果转为 LLM 可用的文本"""
+        # 比如查询 entity="InnoDB"，假设图谱里 MySQL→InnoDB→事务/存储引擎
+# result = {
+#     "entity": "InnoDB",                    # ← 实际查到的实体名（可能经过模糊匹配）
+#     "neighbors": [                         # ← 出边：(关系, 目标实体)
+#         ("支持", "事务"),
+#         ("是",   "存储引擎"),
+#     ],
+#     "in_edges": [                          # ← 入边：(来源实体, 关系)
+#         ("MySQL", "包含"),
+#     ],
+#     "total_connections": 3,                # ← degree 总连接数（出度2+入度1）
+# }
         result = self.query(entity)
         if result["total_connections"] == 0:
             return f"（知识图谱中未找到与「{entity}」相关的实体）"

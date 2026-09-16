@@ -16,7 +16,7 @@ from src.agent.nodes import (
 from src.agent.edges import route_after_router, pick_next_tool, should_continue
 
 
-def build_agent_graph(retriever, llm=None):
+def build_agent_graph(retriever, llm=None, token_queue=None):
     """构建并编译 LangGraph Agent
 
     Graph 结构:
@@ -74,7 +74,9 @@ def build_agent_graph(retriever, llm=None):
     workflow.add_node("retrieve", lambda s: retrieve_node(s, retriever))
     workflow.add_node("web_search", web_search_node)
     workflow.add_node("graph_query", graph_query_node)
-    workflow.add_node("generate", lambda s: generate_node(s, llm))
+    async def _gen_node(s):
+        return await generate_node(s, llm, token_queue)
+    workflow.add_node("generate", _gen_node)
 
     # pick_next_tool 是虚拟路由节点，无操作的 pass-through
     workflow.add_node("pick_next_tool", lambda s: {})

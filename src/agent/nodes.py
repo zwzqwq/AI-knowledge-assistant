@@ -148,7 +148,7 @@ def _summarize_old_messages(state: AgentState, llm) -> dict:
     recent_plain = plain_history[-max_recent:]
     old_plain = plain_history[:-max_recent]
 
-    # 删除所有历史消息，只保留最近 N 条纯对话。
+    # 删除所有历史消息，只保留最近 N 条纯对话。最近的N条纯对话对应的工具消息也会被删除
     # 用 id 判断保留（LangGraph 标准实践）—— 兼容序列化/反序列化场景，
     # 避免因对象引用变化或内容重复导致的误判。
     keep_ids = {m.id for m in recent_plain if m.id}
@@ -343,9 +343,12 @@ def _find_pending_tool_call(messages: list, tool_name: str) -> dict | None:
 # Generate 节点
 # ═══════════════════════════════════════════════════════════
 
-def generate_node(state: AgentState, llm) -> dict:
-    """从 messages 中收集 ToolMessage → 构建 prompt → LLM 生成回答"""
+async def generate_node(state: AgentState, llm, token_queue=None) -> dict:
+    """从 messages 中收集 ToolMessage → 构建 prompt → LLM 生成回答
 
+    token_queue: 可选的 asyncio.Queue，传入时逐 token 推送（真流式），不传则普通返回。
+    async：用 llm.astream()（异步 stream）避免阻塞 event loop，让 token_queue 能并发读取。
+    """
     messages = state.get("messages", [])
 
     # 提取用户原始问题（最后一条 HumanMessage）
@@ -365,7 +368,18 @@ def generate_node(state: AgentState, llm) -> dict:
     if isinstance(last_msg, AIMessage) and last_msg.content and not last_msg.tool_calls:
         if not current_tool_messages:
             logger.info("Generate: 透传 router 直接回答")
-            return {"final_answer": last_msg.content}
+            answer = last_msg.content
+            if token_queue:
+                import asyncio
+                try:
+                    token_queue.put_nowait(answer)
+                except RuntimeError:
+                    pass
+                try:
+                    token_queue.put_nowait(None)  # 哨兵值：结束
+                except RuntimeError:
+                    pass
+            return {"final_answer": answer, "messages": [AIMessage(content=answer)]}
 
     # 收集当前轮的 ToolMessage（同工具取最后一条）
     latest_per_tool: dict[str, str] = {}
@@ -385,13 +399,27 @@ def generate_node(state: AgentState, llm) -> dict:
 
     system_prompt = build_generate_prompt(user_question, tool_results_text)
 
-    response = llm.invoke([
+    # stream 模式（异步）：逐 token 生成，不阻塞 event loop
+    # astream 让 chat_service 的 queue.get() 能并发执行
+    tokens = []
+    async for token in llm.astream([
         SystemMessage(content=system_prompt),
         HumanMessage(content=user_question),
-    ])
+    ]):
+        if token.content:
+            tokens.append(token.content)
+            if token_queue:
+                token_queue.put_nowait(token.content)
+    final_answer = "".join(tokens)
+
+    if token_queue:
+        try:
+            token_queue.put_nowait(None)  # 哨兵值：generate 结束
+        except RuntimeError:
+            pass
 
     logger.info("Generate: 完成")
     return {
-        "final_answer": response.content,
-        "messages": [response],
+        "final_answer": final_answer,
+        "messages": [AIMessage(content=final_answer)],
     }

@@ -3,7 +3,7 @@
 from langchain_core.messages import AIMessage, ToolMessage, HumanMessage
 from .state import AgentState
 
-MAX_ITERATIONS = 12
+MAX_ITERATIONS = 7
 
 
 def _find_last_human_index(messages: list) -> int:
